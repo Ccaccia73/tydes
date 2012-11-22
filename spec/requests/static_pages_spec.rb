@@ -11,9 +11,15 @@ describe "Static pages" do
     		page.should have_selector('h1', :text => 'TYDES')
     	end
 
-    	it "should have the title 'Home'" do
+    	it "should have the base title" do
+			visit '/static_pages/home'
+			#page.should have_selector('title', :text => "#{base_title}")
+			page.should have_selector('title', :text => "TYDES Project" )
+		end
+			
+    	it "should not have a custom page title" do
     		visit '/static_pages/home'
-    		page.should have_selector('title', :text => "#{base_title} | Home")
+    		page.should_not have_selector('title', :text => '| Home')
     	end
 	end
 
@@ -26,7 +32,8 @@ describe "Static pages" do
 
 		it "should have the title 'Help'" do
 			visit '/static_pages/help'
-			page.should have_selector('title', :text => "#{base_title} | Help")
+			#page.should have_selector('title', :text => "#{base_title} | Help")
+			page.should have_selector('title', :text => "TYDES Project | Help")
     	end
 
 		it "should not contain some blah" do
@@ -46,6 +53,7 @@ describe "Static pages" do
 
 		it "should have the title 'About Us'" do
 			visit '/static_pages/about'
+			#
 			page.should have_selector('title', :text => "#{base_title} | About Us")
     	end
 
