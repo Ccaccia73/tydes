@@ -1,5 +1,10 @@
 Tydes::Application.routes.draw do
+  get "detections/new"
+
   root to: 'static_pages#home'
+
+  match '/start',  to: 'detections#new'
+
   match '/help', to: 'static_pages#help'
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
