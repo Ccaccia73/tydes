@@ -57,16 +57,16 @@ describe "Static pages" do
 	it "should have the right links on the layout" do
 		visit root_path
 		click_link "About"
-		page.should have_selector 'title', text: full_title('About Us')
+		page.should have_selector('title', text: full_title('About Us') )
 		click_link "Help"
-		page.should # fill in
+		page.should have_selector('title', text: full_title('Help') )
 		click_link "Contact"
-		page.should # fill in
+		page.should have_selector('title', text: full_title('Contact') )
 		click_link "Home"
-		click_link "Sign up now!"
-		page.should # fill in
-		click_link "sample app"
-		page.should # fill in
+		page.should have_selector('title', text: full_title('') )
+		click_link "Start playing now!"
+		page.should have_selector('title', text: full_title('Start') )
+		# click_link "Spippolo"
+		# page.should have_selector('title', text: full_title('About Us') )
 	end
-  end
 end
