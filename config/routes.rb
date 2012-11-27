@@ -1,5 +1,5 @@
 Tydes::Application.routes.draw do
-  get "detections/new"
+  resources :detections
 
   root to: 'static_pages#home'
 

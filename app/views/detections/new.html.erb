@@ -1,3 +1,14 @@
 <% provide(:title, 'Start') %>
 <h1>Start</h1>
-<p>Find me in app/views/detections/new.html.erb</p>
+<p>Please fill in:</p>
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for(@detection) do |f| %>
+
+		<%= f.label :user %>
+		<%= f.select :user, [["New to the app",1],["Already played with Tydes",2],["Experienced",3]] , {:prompt => 'Select your Type'} %>
+
+		<%= f.submit "Start", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

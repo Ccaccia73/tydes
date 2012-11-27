@@ -7,6 +7,7 @@
 #  value      :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  code       :string(255)
 #
 
 require 'spec_helper'
@@ -18,6 +19,7 @@ describe Detection do
 
 	it { should respond_to(:user) }
 	it { should respond_to(:value) }
+	it { should respond_to(:code) }
 
 	describe "when user is not present" do
 		before { @detection.user = nil }
