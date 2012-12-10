@@ -5,6 +5,8 @@
 	<div class="span6 offset3">
 		<%= form_for(@detection) do |f| %>
 
+		<%= render 'shared/error_messages' %>
+
 		<%= f.label :user %>
 		<%= f.select :user, [["New to the app",1],["Already played with Tydes",2],["Experienced",3]] , {:prompt => 'Select your Type'} %>
 
