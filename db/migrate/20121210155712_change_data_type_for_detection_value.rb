@@ -1,6 +1,6 @@
 class ChangeDataTypeForDetectionValue < ActiveRecord::Migration
   def up
-  	change_column :detections, :value, :text, :limit => nil
+  	change_column :detections, :value, :text
   end
 
   def down

@@ -2,12 +2,17 @@
 #
 # Table name: detections
 #
-#  id         :integer          not null, primary key
-#  user       :integer
-#  value      :text(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  code       :string(255)
+#  id          :integer          not null, primary key
+#  user        :integer
+#  value       :text(4096)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  code        :string(255)
+#  trainingset :text(4096)
+#  fn          :integer
+#  fp          :integer
+#  tn          :integer
+#  tp          :integer
 #
 
 require 'spec_helper'

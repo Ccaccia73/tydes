@@ -11,14 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210155712) do
+ActiveRecord::Schema.define(:version => 20121211080300) do
 
   create_table "detections", :force => true do |t|
     t.integer  "user"
-    t.text     "value",      :limit => 255
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.text     "value",       :limit => 4096
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.string   "code"
+    t.text     "trainingset", :limit => 4096
+    t.integer  "fn"
+    t.integer  "fp"
+    t.integer  "tn"
+    t.integer  "tp"
   end
 
   add_index "detections", ["code"], :name => "index_detections_on_code", :unique => true
