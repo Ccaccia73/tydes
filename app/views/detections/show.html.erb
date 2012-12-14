@@ -11,11 +11,56 @@
 	</aside>
 </div>
 <p>
-	<span class="demoLabel">Action it in 5 seconds:</span> 
-	<span id="shortly" class="countdown"></span>&nbsp;
 	<button type="button" id="shortlyStart">Start</button>
 </p>
+<p>
+	<span id="shortly" class="countdown"></span>&nbsp;
+</p>
 <p style="clear: both;">
-	<span class="demoLabel">&nbsp;</span>
 	<span id="monitor"></span>
 </p>
+<!--<p>P: <%= @positives.keys %></p>
+<p>N: <%= @negatives.keys %></p>-->
+
+<table id="trSamples">
+	<tr>
+		<th>Positives</th>
+		<th>Negatives</th>
+	</tr>
+	<tr>
+		<td>
+			<table>
+				<% (0..4).each do |row_index| %>
+					<tr>
+						<% (0..4).each do |col_index| %>
+							<td>
+								<% code = @positives.keys[row_index * 5 + col_index] %>
+								<%= image_tag(@positives[code][1], alt: code, class: "sample", title: code) %>
+							</td>
+						<% end %>
+					</tr>
+				<% end %>
+			</table>
+		</td>
+		<td>
+			<table>
+				<% (0..4).each do |row_index| %>
+					<tr>
+						<% (0..4).each do |col_index| %>
+							<td>
+								<% code =  @negatives.keys[row_index * 5 + col_index] %>
+								<%= image_tag(@negatives[code][1], alt: code, class: "sample", title: code) %>
+							</td>
+						<% end %>
+					</tr>
+				<% end %>
+			</table>
+		</td>
+	</tr>
+</table> 
+
+<!--
+<p>Codes: <%= @detection.value.keys %></p>
+<p>Values: <%= @detection.value.values %></p>
+-->
+<%= link_to "Start now!", test_detection_path(@detection), class: "btn btn-large btn-primary", id: "trButton" %>

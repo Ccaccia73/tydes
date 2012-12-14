@@ -17,7 +17,7 @@
 
 class Detection < ActiveRecord::Base
 	serialize :value, Hash
-	serialize :trainingset, Hash
+	serialize :trainingset, Array
 
 	attr_accessible :user, :value, :code, :trainingset, :fp, :fn, :tp, :tn
 

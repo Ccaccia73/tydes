@@ -1,0 +1,21 @@
+<% provide(:title, @detection.code) %>
+<h1>Detect images</h1>
+
+<!--
+<p>Codes: <%= @detection.value.keys %></p>
+<p>Values: <%= @detection.value.values %></p>
+-->
+
+<h3>Images (<%= @images.count %>)</h3>
+
+<%= will_paginate @image_keys %>
+
+<ul class="users">
+	<% @image_keys.each do |k|  %>
+		<li>
+			<%= image_tag(@images[k][2], alt: k, class: "test", title: k) %>
+		</li>
+	<% end %>
+</ul>
+
+<%= will_paginate @image_keys %>

@@ -1,5 +1,9 @@
 Tydes::Application.routes.draw do
-  resources :detections
+  resources :detections do
+    member do
+      get :test
+    end
+  end
 
   root to: 'static_pages#home'
 

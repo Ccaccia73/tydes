@@ -49,3 +49,8 @@
 	display: block;
 	width: 100%;
 }
+
+#shortly {
+  width: 160px;
+  height: 40px;
+}

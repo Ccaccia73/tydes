@@ -173,3 +173,7 @@ input, select {
   @extend .control-group;
   @extend .error;
  }
+
+#trSamples {
+  visibility: hidden;
+}
