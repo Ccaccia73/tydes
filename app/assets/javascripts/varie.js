@@ -3,7 +3,7 @@ $(function() {
 	// var shortly = new Date();
 
 	// shortly.setSeconds(shortly.getSeconds() + 5.5);
-
+	$curtainopen = true;
 
 	// $('#shortly').countdown({until: shortly, format: 'MS'});
 
@@ -17,8 +17,22 @@ $(function() {
 	});
 
 	function liftOff() {
-		alert('Get ready!');
+		$(this).blur();
+		if ($curtainopen == false){
+			$(this).stop().animate({top: '0px' }, {queue:false, duration:350, easing:'easeOutBounce'});
+			$(".leftcurtain").stop().animate({width:'60px'}, 2000 );
+			$(".rightcurtain").stop().animate({width:'60px'},2000 );
+			$curtainopen = true;
+		}else{
+			$(this).stop().animate({top: '-40px' }, {queue:false, duration:350, easing:'easeOutBounce'});
+			$(".leftcurtain").stop().animate({width:'50%'}, 2000 );
+			$(".rightcurtain").stop().animate({width:'51%'}, 2000 );
+			$curtainopen = false;
+		}
+		return false;		
 	}
+
+
 
 	/*
 	$('#shortly').countdown({until: shortly,

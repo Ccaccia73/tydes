@@ -1,0 +1,14 @@
+<div class="rightcurtain">
+	<table>
+		<% (0..4).each do |row_index| %>
+			<tr>
+				<% (0..4).each do |col_index| %>
+					<td>
+						<% code =  @detection.negative_training.keys[row_index * 5 + col_index] %>
+						<%= image_tag(@detection.negative_training[code][1], alt: code, class: "sample", title: code) %>
+					</td>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
+</div>

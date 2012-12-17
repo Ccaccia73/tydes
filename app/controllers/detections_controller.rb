@@ -16,21 +16,19 @@ class DetectionsController < ApplicationController
 		pos_ids = all_pos_ids[0..24]
 		neg_ids = all_neg_ids[0..24]
 		
-		@detection.trainingset = pos_ids + neg_ids
-
-		@positives = Hash.new
+		@detection.positive_training = Hash.new
 		pos_ids.each do |pid|
 			pim = Positive.find(pid)
-			@positives[pim.code] = [pid, (pim.dir + pim.name)]
+			@detection.positive_training[pim.code] = [pid, (pim.dir + pim.name)]
 			#pim.trainings += 1
 			#pim.save
 		end
 
-		@negatives = Hash.new
+		@detection.negative_training = Hash.new
 
 		neg_ids.each do |nid|
 			nim = Negative.find(nid)
-			@negatives[nim.code] = [nid, (nim.dir + nim.name)]
+			@detection.negative_training[nim.code] = [nid, (nim.dir + nim.name)]
 			#nim.trainings += 1
 			#nim.save
 		end

@@ -1,5 +1,35 @@
 <% provide(:title, @detection.code) %>
 
+
+<div id="toppanel">
+	<div id="panel">
+		<div class="content clearfix">
+			<div class="left">
+				<h1>Positive Samples</h1>
+				<%= render :partial => "left_table", :locals => { :detection => @detection } %>
+			</div>
+			<div class="right">
+				<h1>Negative Samples</h1>
+				<%= render :partial => "right_table", :locals => { :detection => @detection } %>
+			</div>
+		</div>
+</div> <!-- /login -->	
+
+<!-- The tab on top -->	
+<div class="tab">
+	<ul class="login">
+		<li class="left">&nbsp;</li>
+		<li id="toggle">
+			<a id="open" class="open" href="#">View Training set</a>
+			<a id="close" style="display: none;" class="close" href="#">Close Panel</a>			
+		</li>
+		<li class="right">&nbsp;</li>
+	</ul> 
+</div> <!-- / top -->
+	
+</div> <!--panel -->
+
+
 <div class="row">
 	<aside class="span4">
 		<section>
@@ -19,45 +49,9 @@
 <p style="clear: both;">
 	<span id="monitor"></span>
 </p>
-<!--<p>P: <%= @positives.keys %></p>
-<p>N: <%= @negatives.keys %></p>-->
 
-<table id="trSamples">
-	<tr>
-		<th>Positives</th>
-		<th>Negatives</th>
-	</tr>
-	<tr>
-		<td>
-			<table>
-				<% (0..4).each do |row_index| %>
-					<tr>
-						<% (0..4).each do |col_index| %>
-							<td>
-								<% code = @positives.keys[row_index * 5 + col_index] %>
-								<%= image_tag(@positives[code][1], alt: code, class: "sample", title: code) %>
-							</td>
-						<% end %>
-					</tr>
-				<% end %>
-			</table>
-		</td>
-		<td>
-			<table>
-				<% (0..4).each do |row_index| %>
-					<tr>
-						<% (0..4).each do |col_index| %>
-							<td>
-								<% code =  @negatives.keys[row_index * 5 + col_index] %>
-								<%= image_tag(@negatives[code][1], alt: code, class: "sample", title: code) %>
-							</td>
-						<% end %>
-					</tr>
-				<% end %>
-			</table>
-		</td>
-	</tr>
-</table> 
+
+<%= render :partial => "right_table", :locals => { :detection => @detection } %>
 
 <!--
 <p>Codes: <%= @detection.value.keys %></p>
