@@ -51,6 +51,12 @@ end
 
 gem "heroku"
 
+gem "therubyracer"
+gem 'libv8', '~> 3.11.8'
+gem "less-rails"
+
+gem "twitter-bootstrap-rails"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
