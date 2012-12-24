@@ -1,12 +1,19 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
 	<div class="navbar-inner">
-		<div class="container">
-			<%= link_to "TYDES Project", '#', id: "logo" %>
+		<div class="container-fluid">
+			<%= link_to "TYDES", '#', id: "logo", class: "brand" %>
 			<nav>
 				<ul class="nav pull-right">
+					<li class="header">View results:</li>
+					<li>
+						<form class="navbar-search">
+							<input type="text" class="search-query" placeholder="insert code...">
+						</form>
+					</li>
+					<li class="divider-vertical"></li>
 					<li><%= link_to "Home",    root_path %></li>
+					<li class="divider-vertical"></li>
 					<li><%= link_to "Help",    help_path %></li>
-					<li><%= link_to "Spippolo", '#' %></li>
 				</ul>
 			</nav>
 		</div>

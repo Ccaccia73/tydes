@@ -1,14 +1,23 @@
-<div class="rightcurtain">
-	<table>
-		<% (0..4).each do |row_index| %>
-			<tr>
-				<% (0..4).each do |col_index| %>
-					<td>
-						<% code =  @detection.negative_training.keys[row_index * 5 + col_index] %>
-						<%= image_tag(@detection.negative_training[code][1], alt: code, class: "sample", title: code) %>
-					</td>
-				<% end %>
-			</tr>
-		<% end %>
-	</table>
+<div class="row-fluid">
+	<div class="span10 offset2">
+		<h4>Negative samples</h4>
+	</div>
 </div>
+<% (0..4).each do |row_index| %>
+	<div class="row-fluid">
+		<ul class="thumbnails">
+			<% (0..4).each do |col_index| %>
+				<% if col_index == 0 %>
+					<li class="span2 offset2">
+				<% else %>
+					<li class="span2">
+				<% end %>
+					<a href="#" class="thumbnail">
+						<% code = @detection.negative_training.keys[row_index * 5 + col_index] %>
+						<%= image_tag(@detection.negative_training[code][1], alt: code, title: code) %>
+					</a>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

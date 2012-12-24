@@ -1,7 +1,8 @@
 Tydes::Application.routes.draw do
   resources :detections do
     member do
-      get :test
+      get :test, :results
+      post :save
     end
   end
 
@@ -12,6 +13,7 @@ Tydes::Application.routes.draw do
   match '/help', to: 'static_pages#help'
   match '/about', to: 'static_pages#about'
   match '/contact', to: 'static_pages#contact'
+  match '/news',  to: 'static_pages#updates'
 
 
   # The priority is based upon order of creation:

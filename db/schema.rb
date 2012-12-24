@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20121214084805) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "negatives", ["code"], :name => "index_negatives_on_code", :unique => true
+
   create_table "positives", :force => true do |t|
     t.string   "name"
     t.string   "code"
@@ -56,5 +58,7 @@ ActiveRecord::Schema.define(:version => 20121214084805) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "positives", ["code"], :name => "index_positives_on_code", :unique => true
 
 end

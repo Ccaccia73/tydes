@@ -10,13 +10,27 @@
 
 	<body>
 		<%= render 'layouts/header' %>
-		<div class="container">
-			<%= yield %>
-			<% flash.each do |key, value| %>
-				<div class="alert alert-<%= key %>"><%= value %></div>
-			<% end %>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span3">
+
+				</div>
+				<div class="span6">
+					<% flash.each do |key, value| %>
+						<div class="alert alert-<%= key %>"><%= value %></div>
+					<% end %>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span2">
+					<%= render 'layouts/navbar' %>
+				</div>
+				<div class="span10">
+					<%= yield %>
+				</div>
+			</div>
+			<%= debug(params) if Rails.env.development? %>
+			<%= render 'layouts/footer' %>
 		</div>
-		<%= render 'layouts/footer' %>
-		<%= debug(params) if Rails.env.development? %>
 	</body>
 </html>

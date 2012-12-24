@@ -1,14 +1,14 @@
-<h1>TYDES</h1>
-<p>
-	This is the home page for the TYDES project.
-</p>
-
-<div class="center hero-unit">
+<div class="hero-unit">
 	<h1>Welcome to the TYDES Project</h1>
 
-	<h2>
-		This is the home page for the <a href="http://railstutorial.org/">TYDES</a> application.
-	</h2>
-	<%= link_to "Start now!", start_path, class: "btn btn-large btn-primary" %>
+	<p>
+		This is the home page for the <strong>TYDES</strong> application.</br>
+		TYDES stands for <strong>T</strong>est <strong>Y</strong>our <strong>DE</strong>tection <strong>S</strong>kills and is a simple application that lets the user classify a set of breast cancer histological images.</br>
+		For further details please visit the <%= link_to "About", about_path %> page, or
+	<p>
+	<div class="pagination-centered">
+		<%= link_to "Start now!", start_path, class: "btn btn-large btn-primary" %>
+	</div>
 </div>
-<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+
+<div class="pull-right">This site has been developed in Rails <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %></div>

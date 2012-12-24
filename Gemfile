@@ -1,11 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
-gem 'bootstrap-sass', '2.1'
 
+gem 'bootstrap-sass'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-
 
 
 # Bundle edge Rails instead:
@@ -24,10 +23,12 @@ group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
+  #gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+
 
 group :development do
   gem 'annotate'

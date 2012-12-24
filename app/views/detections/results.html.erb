@@ -1,0 +1,22 @@
+<% provide(:title, @detection.code) %>
+<h1>Congratulations!</h1>
+
+<div class="row-fluid">
+	<div class="span3">Detection code: <%= @detection.code%></div>
+	<div class="span8">Here are your results:</div>
+</div>
+<div class="row-fluid">
+	<div class="span8 offset3">
+		<table class="table table-hover">
+			<caption>Detection results</caption>
+			<tr class="success">
+				<td>True positives: <%= @detection.tp%></td>
+				<td>True negatives: <%= @detection.tn%></td>
+			</tr>
+			<tr class="error">
+				<td>False positives: <%= @detection.fp%></td>
+				<td>False negatives: <%= @detection.fn%></td>
+			</tr>
+		</table>
+	</div>
+</div>

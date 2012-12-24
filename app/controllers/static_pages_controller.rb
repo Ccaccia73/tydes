@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
 	def home
-
+		#@code ||= nil
+		#@phase ||= nil
 	end
 
 	def help
@@ -12,6 +13,10 @@ class StaticPagesController < ApplicationController
 	end
 
 	def contact
+
+	end
+
+	def news
 
 	end
 end

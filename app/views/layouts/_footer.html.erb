@@ -1,13 +1,18 @@
-<footer class="footer">
-	<small>
-		<a href="http://railstutorial.org/">TYDES Project</a>
-		by Claudio Caccia
-	</small>
-	<nav>
-		<ul>
-			<li><%= link_to "About",   about_path %></li>
-			<li><%= link_to "Contact", contact_path %></li>
-			<li><a href="#">News</a></li>
-		</ul>
-	</nav>
+<footer class="navbar navbar-fixed-bottom navbar-inverse">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<ul class="nav pull-left">
+				<li>
+					<%= link_to "TYDES Project", '#', class: "brand" %>
+				</li>
+				<li class="header">by Claudio Caccia</li>
+			</ul>
+			<ul class="nav pull-right">
+				<li><%= link_to "About",   about_path %></li>
+				<li class="divider-vertical"></li>
+				<li><%= link_to "Contact", contact_path %></li>
+				<li><a href="#">News</a></li>
+			</ul>
+		</div>
+	</div>
 </footer>

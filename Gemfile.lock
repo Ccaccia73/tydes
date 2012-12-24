@@ -32,7 +32,8 @@ GEM
     annotate (2.5.0)
       rake
     arel (3.0.2)
-    bootstrap-sass (2.1.0.0)
+    bootstrap-sass (2.2.1.1)
+      sass (~> 3.2)
     bootstrap-will_paginate (0.0.6)
       will_paginate
     builder (3.0.4)
@@ -154,7 +155,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
-  bootstrap-sass (= 2.1)
+  bootstrap-sass
   bootstrap-will_paginate
   capybara (= 1.1.2)
   coffee-rails

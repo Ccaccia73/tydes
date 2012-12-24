@@ -1,60 +1,66 @@
 <% provide(:title, @detection.code) %>
 
+<h2>Training</h2>
 
-<div id="toppanel">
-	<div id="panel">
-		<div class="content clearfix">
-			<div class="left">
-				<h1>Positive Samples</h1>
-				<%= render :partial => "left_table", :locals => { :detection => @detection } %>
+<div class="row-fluid">
+	<div class="span1">
+		<section>
+			<%= thumb_for @detection.user %></br>
+			<h4>
+				<%= @detection.code %>
+			</h4>
+		</section>
+	</div>
+	<div class="span8">
+		<div class="row-fluid">
+			<div class="span1 offset1 eqh">
+				<span class="label label-important spot">Important</span>
 			</div>
-			<div class="right">
-				<h1>Negative Samples</h1>
-				<%= render :partial => "right_table", :locals => { :detection => @detection } %>
+			<div class="span9 offset1 pull-right eqhBase">
+				<p>Please use the 5 character code on the left to review the results of the detection, when you have completed the process.</p>
 			</div>
 		</div>
-</div> <!-- /login -->	
-
-<!-- The tab on top -->	
-<div class="tab">
-	<ul class="login">
-		<li class="left">&nbsp;</li>
-		<li id="toggle">
-			<a id="open" class="open" href="#">View Training set</a>
-			<a id="close" style="display: none;" class="close" href="#">Close Panel</a>			
-		</li>
-		<li class="right">&nbsp;</li>
-	</ul> 
-</div> <!-- / top -->
-	
-</div> <!--panel -->
-
-
-<div class="row">
-	<aside class="span4">
-		<section>
-			<h1>
-				<%= thumb_for @detection.user %>
-				<%= @detection.code %>
-			</h1>
-		</section>
-	</aside>
+	</div>
 </div>
-<p>
-	<button type="button" id="shortlyStart">Start</button>
-</p>
-<p>
-	<span id="shortly" class="countdown"></span>&nbsp;
-</p>
-<p style="clear: both;">
-	<span id="monitor"></span>
-</p>
-
-
-<%= render :partial => "right_table", :locals => { :detection => @detection } %>
-
-<!--
-<p>Codes: <%= @detection.value.keys %></p>
-<p>Values: <%= @detection.value.values %></p>
--->
-<%= link_to "Start now!", test_detection_path(@detection), class: "btn btn-large btn-primary", id: "trButton" %>
+<div class="row-fluid">
+	<div class="well well-small span12">
+		<div class="accordion" id="accordion2">
+			<div class="accordion-group">
+				<div id="collapseOne" class="accordion-body collapse in">
+					<div class="accordion-inner">
+						<div class="span10">
+							<p class="text-info">You are now asked to view a training set of images. It is composed of two set of images: 25 positives and 25 negatives. Push the button when you are ready to start.</p>
+						</div>
+						<div class="span2">
+							<button type="button" id="startCount" class="btn btn-small btn-info" data-toggle="collapse" data-target="#collapseTwo" data-parent="#accordion2">View Training Set</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-group">
+				<div id="collapseTwo" class="accordion-body collapse">
+					<div class="accordion-inner">
+						<div class="row-fluid">
+							<div class="span12 divCenter">
+								<div class="span2 offset5" id="Countdown"></div>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span6 pull-left" id="tbl">
+								<%= render :partial => "left_table", :locals => { :detection => @detection } %>
+							</div>
+							<div class="span6 pull-right" id="tbr">
+								<%= render :partial => "right_table", :locals => { :detection => @detection } %>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span12 divCenter">
+								<%= link_to "Start Detection!", test_detection_path(@detection), class: "btn btn-large btn-primary", id: "trButton" %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

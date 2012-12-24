@@ -1,12 +1,19 @@
-<table>
-	<% (0..4).each do |row_index| %>
-		<tr>
+<div class="row-fluid">
+	<div class="span12">
+		<h4>Positive samples</h4>
+	</div>
+</div>
+<% (0..4).each do |row_index| %>
+	<div class="row-fluid">
+		<ul class="thumbnails">
 			<% (0..4).each do |col_index| %>
-				<td>
-					<% code = @detection.positive_training.keys[row_index * 5 + col_index] %>
-					<%= image_tag(@detection.positive_training[code][1], alt: code, class: "sample", title: code) %>
-				</td>
+				<li class="span2">
+					<a href="#" class="thumbnail">
+						<% code = @detection.positive_training.keys[row_index * 5 + col_index] %>
+						<%= image_tag(@detection.positive_training[code][1], alt: code, title: code) %>
+					</a>
+				</li>
 			<% end %>
-		</tr>
-	<% end %>
-</table>
+		</ul>
+	</div>
+<% end %>

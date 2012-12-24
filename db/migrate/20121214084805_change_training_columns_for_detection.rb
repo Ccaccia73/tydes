@@ -5,5 +5,8 @@ class ChangeTrainingColumnsForDetection < ActiveRecord::Migration
   end
 
   def down
+  	rename_column	:detections, :positive_training, :trainingset
+  	remove_column	:detections, :negative_training
+  	#remove_column	:detections, :positive_training
   end
 end

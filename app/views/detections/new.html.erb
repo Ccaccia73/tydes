@@ -1,14 +1,28 @@
 <% provide(:title, 'Start') %>
-<h1>Start</h1>
-<p>Please fill in:</p>
-<div class="row">
-	<div class="span6 offset3">
+<h2>Start</h2>
+
+<!-- Intro -->
+<div class="row-fluid">
+	<div class="span1 offset1 spot eqh">
+		<span class="label label-info">Note</span>
+	</div>
+	<div class="span7 eqhBase">
+		<p>We collect only the following data for each test. We want to analyze if there are differences in the results obtained by different kinds of users.</p>
+	</div>
+</div>
+
+
+<!-- FORM -->
+<div class="row-fluid">
+	<div class="span5 offset3">
+		<p>Please fill in:</p>
 		<%= form_for(@detection) do |f| %>
 
 		<%= render 'shared/error_messages' %>
 
 		<%= f.label :user %>
-		<%= f.select :user, [["New to the app",1],["Already played with Tydes",2],["Experienced",3]] , {:prompt => 'Select your Type'} %>
+		<%= f.select :user, [["I'm new to the app",1],["I've already played with Tydes",2],["I'm an Experienced User",3]] ,
+		{:prompt => 'Please select which kind of user defines you...'} %>
 
 		<%= f.submit "Start", class: "btn btn-large btn-primary" %>
     <% end %>
