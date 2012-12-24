@@ -7,13 +7,14 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  code                 :string(255)
+#  positive_trainingset :text
+#  value                :text(255)
+#  positive_training    :text
 #  fn                   :integer
 #  fp                   :integer
 #  tn                   :integer
 #  tp                   :integer
 #  negative_training    :text
-#  positive_trainingset :text
-#  value                :text
 #
 
 class Detection < ActiveRecord::Base
