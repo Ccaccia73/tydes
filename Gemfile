@@ -26,6 +26,11 @@ group :assets do
   #gem 'jquery-datatables-rails', github: 'rweng/jquery-datatables-rails'
 end
 
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
+
+
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
