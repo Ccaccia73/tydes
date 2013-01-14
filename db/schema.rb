@@ -11,24 +11,52 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214084805) do
+ActiveRecord::Schema.define(:version => 20130114123032) do
 
   create_table "detections", :force => true do |t|
     t.integer  "user"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.text     "value",             :limit => 4096
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "code"
-    t.text     "positive_trainingset"
-    t.text     "value",                :limit => 255
-    t.text     "positive_training"
+    t.text     "positive_training", :limit => 4096
     t.integer  "fn"
     t.integer  "fp"
     t.integer  "tn"
     t.integer  "tp"
-    t.text     "negative_training"
+    t.text     "negative_training", :limit => 4096
   end
 
   add_index "detections", ["code"], :name => "index_detections_on_code", :unique => true
+
+  create_table "evalnegatives", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "dir"
+    t.string   "image"
+    t.integer  "x"
+    t.integer  "y"
+    t.integer  "detections"
+    t.integer  "positives"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "evalnegatives", ["code"], :name => "index_evalnegatives_on_code", :unique => true
+
+  create_table "evalpositives", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.string   "dir"
+    t.string   "image"
+    t.integer  "x"
+    t.integer  "y"
+    t.integer  "positives"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "evalpositives", ["code"], :name => "index_evalpositives_on_code", :unique => true
 
   create_table "negatives", :force => true do |t|
     t.string   "name"
@@ -38,8 +66,6 @@ ActiveRecord::Schema.define(:version => 20121214084805) do
     t.integer  "x"
     t.integer  "y"
     t.integer  "trainings"
-    t.integer  "detections"
-    t.integer  "positives"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -53,9 +79,6 @@ ActiveRecord::Schema.define(:version => 20121214084805) do
     t.string   "image"
     t.integer  "x"
     t.integer  "y"
-    t.integer  "trainings"
-    t.integer  "detections"
-    t.integer  "positives"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

@@ -10,8 +10,6 @@
 #  x          :integer
 #  y          :integer
 #  trainings  :integer
-#  detections :integer
-#  positives  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

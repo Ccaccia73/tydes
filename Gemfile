@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.11'
 
 gem 'bootstrap-sass'
 gem 'will_paginate'
@@ -51,11 +51,15 @@ end
 
 gem "heroku"
 
-gem "therubyracer"
-gem 'libv8', '~> 3.11.8'
-gem "less-rails"
 
-gem "twitter-bootstrap-rails"
+#gem 'therubyracer'
+#gem 'libv8', '3.11.8.0'
+
+#gem "less-rails"
+
+#gem "twitter-bootstrap-rails"
+
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

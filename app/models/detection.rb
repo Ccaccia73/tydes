@@ -2,19 +2,18 @@
 #
 # Table name: detections
 #
-#  id                   :integer          not null, primary key
-#  user                 :integer
-#  created_at           :datetime         not null
-#  updated_at           :datetime         not null
-#  code                 :string(255)
-#  positive_trainingset :text
-#  value                :text(255)
-#  positive_training    :text
-#  fn                   :integer
-#  fp                   :integer
-#  tn                   :integer
-#  tp                   :integer
-#  negative_training    :text
+#  id                :integer          not null, primary key
+#  user              :integer
+#  value             :text(4096)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  code              :string(255)
+#  positive_training :text(4096)
+#  fn                :integer
+#  fp                :integer
+#  tn                :integer
+#  tp                :integer
+#  negative_training :text(4096)
 #
 
 class Detection < ActiveRecord::Base
