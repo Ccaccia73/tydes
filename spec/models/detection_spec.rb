@@ -14,6 +14,7 @@
 #  tn                :integer
 #  tp                :integer
 #  negative_training :text(4096)
+#  sight             :integer
 #
 
 require 'spec_helper'

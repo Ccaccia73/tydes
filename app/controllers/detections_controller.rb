@@ -9,51 +9,8 @@ class DetectionsController < ApplicationController
 	def show
 		@detection = Detection.find(params[:id])
 
-		all_pos_ids = (1..Positive.count).to_a.shuffle[0..49]
-		all_neg_ids = (1..Negative.count).to_a.shuffle[0..49]
-		
-		pos_ids = all_pos_ids[0..24]
-		neg_ids = all_neg_ids[0..24]
-		
-		@detection.positive_training = Hash.new
-		pos_ids.each do |pid|
-			pim = Positive.find(pid)
-			@detection.positive_training[pim.code] = [pid, (pim.dir + pim.name)]
-			#pim.trainings += 1
-			#pim.save
-		end
-
-		@detection.negative_training = Hash.new
-
-		neg_ids.each do |nid|
-			nim = Negative.find(nid)
-			@detection.negative_training[nim.code] = [nid, (nim.dir + nim.name)]
-			#nim.trainings += 1
-			#nim.save
-		end
-
-		tmpkeys = Array.new
-
-		(25..49).each do |k|
-			pim = Positive.find(all_pos_ids[k])
-			nim = Negative.find(all_neg_ids[k])
-			tmpkeys << [pim.code, 't', (pim.dir + pim.name), all_pos_ids[k]]
-			tmpkeys << [nim.code, 'f', (nim.dir + nim.name), all_neg_ids[k]]
-			#pim.detections += 1
-			#nim.detections += 1
-		end
-
-		tmpkeys.shuffle!
-
-		(0..tmpkeys.length-1).each do |j|
-			# key is CODE, value is an array made with id, type, name, detection
-			@detection.value[tmpkeys[j][0]] = [tmpkeys[j][3], tmpkeys[j][1], tmpkeys[j][2], 'u']
-		end
-
-		@positive_images = @detection.positive_training
-		@negative_images = @detection.negative_training
-		@detection.save
-
+		@positive_keys = @detection.positive_training.keys.paginate(:page => params[:positive_page], :per_page => 36)
+		@negative_keys = @detection.negative_training.keys.paginate(:page => params[:negative_page], :per_page => 36)
 	end
 
 	def create
@@ -75,6 +32,56 @@ class DetectionsController < ApplicationController
 
     	if @detection.save
     		# flash[:success] = "Welcome to the training phase!"
+
+    		#shuffle positive and select same number of negatives for training
+    		pos_ids = (1..Positive.count).to_a.shuffle
+    		neg_ids = (1..Negative.count).to_a.shuffle[0..Positive.count-1]
+
+    		# build positive training set
+    		@detection.positive_training = Hash.new
+
+    		pos_ids.each do |pid|
+    			pim = Positive.find(pid)
+    			@detection.positive_training[pim.code] = [pid, ('training/' + pim.dir + pim.name)]
+    			#pim.trainings += 1
+    			#pim.save
+    		end
+
+    		#build negative training set
+    		@detection.negative_training = Hash.new
+
+    		neg_ids.each do |nid|
+    			nim = Negative.find(nid)
+    			@detection.negative_training[nim.code] = [nid, ('training/' + nim.dir + nim.name)]
+    			#nim.trainings += 1
+    			#nim.save
+    		end
+
+    		#build test set
+    		tmpkeys = Array.new
+
+    		#shuffle positive and select same number of negatives for detection
+    		eval_pos_ids = (1..Evalpositive.count).to_a.shuffle
+    		eval_neg_ids = (1..Evalnegative.count).to_a.shuffle[0..Evalpositive.count-1]
+
+    		(0..Evalpositive.count-1).each do |k|
+    			pim = Evalpositive.find(eval_pos_ids[k])
+    			nim = Evalnegative.find(eval_neg_ids[k])
+    			tmpkeys << [pim.code, '1', ('evaluation/' + pim.dir + pim.name), eval_pos_ids[k]]
+    			tmpkeys << [nim.code, '0', ('evaluation/' + nim.dir + nim.name), eval_neg_ids[k]]
+    			#pim.detections += 1
+    			#nim.detections += 1
+    		end
+
+    		tmpkeys.shuffle!
+
+    		(0..tmpkeys.length-1).each do |j|
+    			# key is CODE, value is an array made with id, type, name, detection
+    			@detection.value[tmpkeys[j][0]] = [tmpkeys[j][3], tmpkeys[j][1], tmpkeys[j][2], 'u']
+    		end
+
+    		@detection.save
+
       		redirect_to @detection
     	else
 			render 'new'

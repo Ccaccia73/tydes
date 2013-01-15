@@ -15,14 +15,22 @@
 <!-- FORM -->
 <div class="row-fluid">
 	<div class="span5 offset3">
-		<p>Please fill in:</p>
+		<p>Please tell us something about you:</p>
 		<%= form_for(@detection) do |f| %>
 
 		<%= render 'shared/error_messages' %>
 
 		<%= f.label :user %>
-		<%= f.select :user, [["I'm new to the app",1],["I've already played with Tydes",2],["I'm an Experienced User",3]] ,
-		{:prompt => 'Please select which kind of user defines you...'} %>
+		<%= f.select :user, [["I don't work in medicine/biology",1],
+							 ["I work in medicine/biology but I am not an histologist",2],
+							 ["I am an histologist",3]] ,
+		{:prompt => 'How would you define yourself?'} %>
+
+		<%= f.label :sight %>
+		<%= f.select :sight, [["I have normal color vision",1],
+							 ["I am colorblind",2]] ,
+		{:prompt => 'How would you define your visual ability?'} %>
+
 
 		<%= f.submit "Start", class: "btn btn-large btn-primary" %>
     <% end %>

@@ -14,6 +14,7 @@
 #  tn                :integer
 #  tp                :integer
 #  negative_training :text(4096)
+#  sight             :integer
 #
 
 class Detection < ActiveRecord::Base
@@ -21,7 +22,8 @@ class Detection < ActiveRecord::Base
 	serialize :positive_training, Hash
 	serialize :negative_training, Hash
 
-	attr_accessible :user, :value, :code, :trainingset, :fp, :fn, :tp, :tn
+	attr_accessible :user, :value, :code, :trainingset, :fp, :fn, :tp, :tn, :sight
 
 	validates :user, :numericality => { :only_integer => true }
+	validates :sight, :numericality => { :only_integer => true }
 end
