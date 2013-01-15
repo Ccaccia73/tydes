@@ -121,9 +121,9 @@ class DetectionsController < ApplicationController
 			@curr_neg_page = params[:neg_page].to_i
 		end
 
-		@images = @detection.value
+		@f1score = 0.0;
 		#@image_keys = @detection.value.keys.paginate(:page => params[:page], :per_page => 5)
-		@image_keys = @detection.value.keys
+		@curr_image_code = @detection.value.keys[@detection.currId]
 	end
 
 	def save
