@@ -2,95 +2,157 @@
 <script>
 </script>
 
-<h2>Image Classification</h2>
+<h2>Classification</h2>
 
 <!-- Intro -->
 <div class="row-fluid">
-	<div class="span1 offset1 spot eqh">
-		<span class="label label-info">Note</span>
+	<div class="span1 pull-left eqh">
+		<section>
+			<p class="text-info"><em>Code:</em></p>
+			<h5>
+				<%= @detection.code %>
+			</h5>
+		</section>
 	</div>
-	<div class="span7 eqhBase">
-		<p>You are now required to...</p>
+	<div class="span11 well well-small pull-right eqhBase">
+		<div class="row-fluid">
+			<div class="span10 offset1">
+				<p>
+					Please give your best guess for the example below. We know that many samples are very difficult. Each image we show has the same probability.
+				</p>
+				<dl>
+					<dt>
+						DEFINITELY MITOSIS
+					</dt>
+					<dd>
+						there is a mitotic nucleus right at the center of this image
+					</dd>
+					<dt>
+						UNSURE, PROBABLY MITOSIS
+					</dt>
+					<dd>
+						inclined towards the presence of a mitotic nucleus at the center of this image
+					</dd>
+					<dt>
+						UNSURE, PROBABLY NONMITOSIS
+					</dt>
+					<dd>
+						inclined towards the absence of a mitotic nucleus in this image
+					</dd>
+					<dt>
+						DEFINITELY NONMITOSIS
+					</dt>
+					<dd>
+						there is no mitotic nucleus in this image
+					</dd>
+
+				</dl>
+			</div>
+		</div>
 	</div>
 </div>
 
-<!-- the input fields that will hold the variables we will use -->  
-<input type='hidden' id='current_page' />  
-<input type='hidden' id='show_per_page' /> 
 
+<!-- TRAINING SAMPLES -->
+<div class="row-fluid">
+	<div class="span6 well pull-left">
+		<a name="samples"></a>
+		<div class="row-fluid">
+			<div class="span12">
+				<p>&nbsp</p>
+				<h3><span class="label label-info">Mitotic samples</span></h3>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<% (0..2).each do |row_index| %>
+					<div class="row-fluid">
+						<ul class="thumbnails">
+							<% (0..5).each do |col_index| %>
+								<li class="span2">
+									<a href="#samples" class="thumbnail">
+										<% code = @positive_keys[row_index * 6 + col_index] %>
+										<%= image_tag(@detection.positive_training[code][1], alt: code, title: code) %>
+									</a>
+								</li>
+							<% end %>
+						</ul>
+					</div>
+				<% end %>
+			</div>
+			<div class="span12 divCenter">
+				<p class="text-info">showing samples from <strong><%= (@curr_pos_page - 1) * 18 + 1 %></strong> to 
+				<strong><%= @curr_pos_page * 18 %></strong></p>
+			</div>
+			<div class="pagination pagination-small pagination-centered">
+				<%= will_paginate @positive_keys, :param_name => 'pos_page', :params => {:anchor => "samples"} %>
+			</div>
+		</div>
+	</div>
+	<div class="span6 well pull-right">
+		<div class="row-fluid">
+			<div class="span12">
+				<p>&nbsp</p>
+				<h3><span class="label label-warning">NON Mitotic samples</span></h3>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<% (0..2).each do |row_index| %>
+					<div class="row-fluid">
+						<ul class="thumbnails">
+							<% (0..5).each do |col_index| %>
+								<li class="span2">
+									<a href="#samples" class="thumbnail">
+										<% code = @negative_keys[row_index * 6 + col_index] %>
+										<%= image_tag(@detection.negative_training[code][1], alt: code, title: code) %>
+									</a>
+								</li>
+							<% end %>
+						</ul>
+					</div>
+				<% end %>
+			</div>
+			<div class="span12 divCenter">
+				<p class="text-info">showing samples from <strong><%= (@curr_neg_page - 1) * 18 + 1 %></strong> to 
+				<strong><%= @curr_neg_page * 18 %></strong></p>
+			</div>
+			<div class="pagination pagination-small pagination-centered">
+				<%= will_paginate @negative_keys, :param_name => 'neg_page', :params => {:anchor => "samples"} %>
+			</div> 
+		</div>
+	</div>
+</div>
+
+
+<!-- -->
 
 <%= form_tag(save_detection_path(@detection.id), :method=>'post', :multipart => true)  do %>
 	
 	<div class="row-fluid">
-		<div id="page_navigation"></div>
-	</div>
-
-	<div class="row-fluid">
 		<div class="span12">
-			<table>
-				<tbody id="content">
-				<% (0..9).each do |rows| %>
-					<tr>
-						<% (0..4).each do |col| %>
-							<% k = @image_keys[rows * 5 + col] %>
-							<td>
-								<div class="thumbnail">
-									<a href="#" class="thumbnail">
-										<%= image_tag(@images[k][2], alt: k, title: k) %>
-									</a>
-									<div class="caption">
-										<h5>Classify:</h5>
-										<label class="radio">
-											<%= radio_button_tag( k, "p" ) %>Positive
-										</label>
-										<label class="radio">
-											<%= radio_button_tag( k, "n" ) %>Negative
-										</label>
-									</div>
-								</div>
-							</td>
-						<% end %>
-					</tr>
-				<% end %>
-				</tbody>
-			</table>
+			<div class="thumbnail">
+				<a href="#" class="thumbnail">
+					<%= image_tag( @detection.id) %>
+				</a>
+				<div class="caption">
+					<h5>Classify:</h5>
+					<label class="radio">
+						<%= radio_button_tag( "k", "p" ) %>Positive
+					</label>
+					<label class="radio">
+						<%= radio_button_tag( "k", "n" ) %>Negative
+					</label>
+				</div>
+			</div>
 		</div>
-	</div>
-
-	<div class="row-fluid">
-		<div id="page_navigation"></div>
 	</div>
 
 	<div class="row-fluid">
 		<div class="span5"></div>
 		<div class="span2 divCenter">
-			<%= submit_tag "Submit", class: "btn btn-large btn-primary" %>
-		</div>
-		<div class="span2"></div>
-		<div class="span3 divCenter">
-			<!-- Button to trigger modal -->
-			<a href="#trainingModal" role="button" class="btn btn-info btn-large" data-toggle="modal" data-keyboard="true">View Training Samples</a>
+			<%= submit_tag "Submit", class: "btn btn-primary" %>
 		</div>
 	</div>
 
 <% end %>
-
-<div class="modal hide fade" id="trainingModal">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3>Training Set</h3>
-	</div>
-	<div class="modal-body">
-		<div class="row-fluid">
-			<div class="span6 pull-left" id="tbl">
-				<%= render :partial => "left_table", :locals => { :detection => @detection } %>
-			</div>
-			<div class="span6 pull-right" id="tbr">
-				<%= render :partial => "right_table", :locals => { :detection => @detection } %>
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	</div>
-</div>

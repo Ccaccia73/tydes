@@ -38,11 +38,6 @@ class DetectionsController < ApplicationController
 
 		@detection.code = tmp
 
-		@detection.tp = 0
-		@detection.tn = 0
-		@detection.fp = 0
-		@detection.fn = 0
-
     	if @detection.save
     		# flash[:success] = "Welcome to the training phase!"
 
@@ -93,6 +88,13 @@ class DetectionsController < ApplicationController
     			@detection.value[tmpkeys[j][0]] = [tmpkeys[j][3], tmpkeys[j][1], tmpkeys[j][2], 'u']
     		end
 
+			@detection.tp = 0
+			@detection.tn = 0
+			@detection.fp = 0
+			@detection.fn = 0
+
+			@detection.currId = 0
+
     		@detection.save
 
       		redirect_to @detection
@@ -103,6 +105,22 @@ class DetectionsController < ApplicationController
 
 	def test
 		@detection = Detection.find(params[:id])
+
+		@positive_keys = @detection.positive_training.keys.paginate(:page => params[:pos_page], :per_page => 18)
+		@negative_keys = @detection.negative_training.keys.paginate(:page => params[:neg_page], :per_page => 18)
+		
+		if params[:pos_page].nil?
+			@curr_pos_page = 1
+		else
+			@curr_pos_page = params[:pos_page].to_i
+		end
+
+		if params[:neg_page].nil?
+			@curr_neg_page = 1
+		else
+			@curr_neg_page = params[:neg_page].to_i
+		end
+
 		@images = @detection.value
 		#@image_keys = @detection.value.keys.paginate(:page => params[:page], :per_page => 5)
 		@image_keys = @detection.value.keys

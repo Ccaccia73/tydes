@@ -57,7 +57,7 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $grayLight;
+  /*color: $grayLight; */
 }
 
 p {
@@ -182,21 +182,9 @@ li.header {
   text-align: center;
 }
 
-/* modal width training set */
-#trainingModal .modal-body {
-  max-height: 600px;
-}
-
-#trainingModal {
-  width: 800px;
-  margin: -300px 0 0 -400px;
-}
 
 
 .imagethumb {
   margin-left: 2.12766%;
 }
 
-#traintable {
-  height: 270px;
-}

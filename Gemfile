@@ -57,7 +57,7 @@ gem "heroku"
 
 #gem "less-rails"
 
-#gem "twitter-bootstrap-rails"
+gem "twitter-bootstrap-rails"
 
 
 

@@ -22,7 +22,7 @@ class Detection < ActiveRecord::Base
 	serialize :positive_training, Hash
 	serialize :negative_training, Hash
 
-	attr_accessible :user, :value, :code, :trainingset, :fp, :fn, :tp, :tn, :sight
+	attr_accessible :user, :value, :code, :trainingset, :fp, :fn, :tp, :tn, :sight, :currId
 
 	validates :user, :numericality => { :only_integer => true }
 	validates :sight, :numericality => { :only_integer => true }
