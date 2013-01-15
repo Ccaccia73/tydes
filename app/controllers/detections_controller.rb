@@ -9,8 +9,21 @@ class DetectionsController < ApplicationController
 	def show
 		@detection = Detection.find(params[:id])
 
-		@positive_keys = @detection.positive_training.keys.paginate(:page => params[:positive_page], :per_page => 36)
-		@negative_keys = @detection.negative_training.keys.paginate(:page => params[:negative_page], :per_page => 36)
+		@positive_keys = @detection.positive_training.keys.paginate(:page => params[:pos_page], :per_page => 24)
+		@negative_keys = @detection.negative_training.keys.paginate(:page => params[:neg_page], :per_page => 24)
+		
+		if params[:pos_page].nil?
+			@curr_pos_page = 1
+		else
+			@curr_pos_page = params[:pos_page].to_i
+		end
+
+		if params[:neg_page].nil?
+			@curr_neg_page = 1
+		else
+			@curr_neg_page = params[:neg_page].to_i
+		end
+		
 	end
 
 	def create
