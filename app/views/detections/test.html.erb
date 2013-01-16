@@ -4,6 +4,18 @@
 
 <h2>Classification</h2>
 
+<!-- preload images -->
+	<% if params[:pos_page].nil? and  params[:neg_page].nil? %>
+		<% @detection.positive_training.keys.each do |code| %>
+			<%= image_tag(@detection.positive_training[code][1], width: 0, height: 0, border: 0, alt: ""  ) %>
+		<% end %>
+		<% @detection.negative_training.keys.each do |code| %>
+			<%= image_tag(@detection.negative_training[code][1], width: 0, height: 0, border: 0, alt: ""  ) %>
+		<% end %>
+	<% else %>
+		<p>&nbsp;</p>
+	<% end %>
+
 <!-- Intro -->
 <div class="row-fluid">
 	<div class="span1 pull-left eqh">
@@ -130,7 +142,7 @@
 	
 	<div class="row-fluid">
 		<div class="well span4 eqh">
-			<h3>Your performance:</h3>
+			<h4>Your performance:</h4>
 			<% if @detection.currId < 10 %>
 				<p class="text-info">your performance will be available after 10 detections</p>
 			<% else %>

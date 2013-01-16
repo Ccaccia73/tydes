@@ -49,7 +49,7 @@ group :production do
   #gem 'thin'
 end
 
-gem "heroku"
+#gem "heroku"
 
 
 #gem 'therubyracer'
