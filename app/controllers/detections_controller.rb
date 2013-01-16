@@ -1,6 +1,9 @@
 require 'will_paginate/array'
+require 'action_view/helpers/number_helper'
 
 class DetectionsController < ApplicationController
+
+	include ActionView::Helpers::NumberHelper
 
 	def new
 		@detection = Detection.new
@@ -84,8 +87,8 @@ class DetectionsController < ApplicationController
     		tmpkeys.shuffle!
 
     		(0..tmpkeys.length-1).each do |j|
-    			# key is CODE, value is an array made with id, type, name, detection
-    			@detection.value[tmpkeys[j][0]] = [tmpkeys[j][3], tmpkeys[j][1], tmpkeys[j][2], 'u']
+    			# key is CODE, value is an array made with id, type, name, detection, time
+    			@detection.value[tmpkeys[j][0]] = [tmpkeys[j][3], tmpkeys[j][1], tmpkeys[j][2], 'u', 0]
     		end
 
 			@detection.tp = 0
@@ -121,73 +124,147 @@ class DetectionsController < ApplicationController
 			@curr_neg_page = params[:neg_page].to_i
 		end
 
-		@f1score = 0.0;
+		f1den = 2*@detection.tp + @detection.fn + @detection.fp
+
+		if f1den == 0
+			@f1score = number_with_precision(0.0);
+		else
+			@f1score = number_with_precision( 2*@detection.tp.to_f / f1den.to_f )
+		end
+
 		#@image_keys = @detection.value.keys.paginate(:page => params[:page], :per_page => 5)
 		@curr_image_code = @detection.value.keys[@detection.currId]
+
+		#save at beginning of test, to use "updated_at" as a time reference
+		if params[:pos_page].nil? and params[:neg_page].nil? and @detection.currId == 0
+			@detection.save
+		end
 	end
 
 	def save
+		act_t = Time.now
 		@detection = Detection.find(params[:id])
+
+		selected = false
+
+		guess = 0
 
 		params.keys.each do |k|
 			if k.length == 9
 				# look for code
-				pim = Positive.find_by_code(k)
+				pim = Evalpositive.find_by_code(k)
 				
 				if pim != nil
 					# it is a positive image
-					pim.detections += 1
-					if params[k] == 'p'
+					if params[k] == 'pp'
+						selected = true
+						guess = 1
 						#it is detected as positive
 						pim.positives += 1
 						#update detection
-						@detection.value[k][3] = 'tp'
+						@detection.value[k][3] = 1.0
 						@detection.tp += 1
-					elsif params[k] == 'n'
+					elsif params[k] == 'qp'
+						selected = true
+						guess = 2
+						#it is detected as positive
+						pim.positives += 1
 						#update detection
-						@detection.value[k][3] = 'fn'
+						@detection.value[k][3] = 0.75
+						@detection.tp += 1
+					elsif params[k] == 'qn'
+						selected = true
+						guess = 3
+						#update detection
+						@detection.value[k][3] = 0.25
 						@detection.fn += 1
+					elsif params[k] == 'nn'
+						selected = true
+						guess = 4
+						#update detection
+						@detection.value[k][3] = 0.0
+						@detection.fn += 1					
 					end
 					pim.save
+					@detection.value[k][4] = (act_t - @detection.updated_at).to_i
 				else
-					nim = Negative.find_by_code(k)
+					nim = Evalnegative.find_by_code(k)
 
 					if nim != nil
 						# it is a negative image
 						nim.detections += 1
-						if params[k] == 'p'
+						if params[k] == 'pp'
+							selected = true
+							guess = 5
 							#it is detected as positive
 							nim.positives += 1
 							#update detection
-							@detection.value[k][3] = 'fp'
+							@detection.value[k][3] = 1.0
 							@detection.fp += 1
-						elsif params[k] == 'n'
+						elsif params[k] == 'qp'
+							selected = true
+							guess = 6
+							#it is detected as positive
+							nim.positives += 1
 							#update detection
-							@detection.value[k][3] = 'tn'
+							@detection.value[k][3] = 0.75
+							@detection.fp += 1
+						elsif params[k] == 'qn'
+							selected = true
+							guess = 7
+							#update detection
+							@detection.value[k][3] = 0.25
 							@detection.tn += 1
+						elsif params[k] == 'nn'
+							selected = true
+							guess = 8
+							#update detection
+							@detection.value[k][3] = 0.0
+							@detection.tn += 1					
 						end
 						nim.save
+						@detection.value[k][4] = (act_t - @detection.updated_at).to_i
 					end
 				end
 			end
 		end
 
-		#update trainings
-		@detection.positive_training.keys.each do |k|
-			pim = Positive.find_by_code(k)
-			pim.trainings += 1
-			pim.save
+		#params[:pos_page] = params['cpp']
+		#params[:neg_page] = params['cnp']
+
+		if !selected
+			flash[:warning] = "Please classify Image or press Finish"
+			redirect_to test_detection_path(@detection, :anchor => "samples")
+		else
+			case guess
+				when 1
+					flash[:success] = "Correct! last image was a Mitosis"
+				when 2
+					flash[:success] = "Your guess was right: last image was a Mitosis"
+				when 3
+					flash[:error] = "Your guess was wrong: last image was a Mitosis"
+				when 4
+					flash[:error] = "Sorry! last image was a Mitosis"
+				when 5
+					flash[:error] = "Sorry! last image was a NON Mitosis"
+				when 6
+					flash[:error] = "Your guess was wrong: last image was a NON Mitosis"
+				when 7
+					flash[:success] = "Your guess was right: last image was a NON Mitosis"
+				when 8
+					flash[:success] = "Correct! last image was a NON Mitosis"
+			end
+
+			@detection.currId += 1
+			@detection.save
+
+			if @detection.currId == @detection.value.values.length
+				redirect_to results_detection_path(@detection)
+			else
+				redirect_to test_detection_path(@detection, :anchor => "samples")
+			end
 		end
 
-		@detection.negative_training.keys.each do |k|
-			nim = Negative.find_by_code(k)
-			nim.trainings += 1
-			nim.save
-		end
-
-
-		@detection.save
-		redirect_to results_detection_path(@detection)
 	end
 
 	def results

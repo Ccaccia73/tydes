@@ -1,8 +1,8 @@
 Tydes::Application.routes.draw do
   resources :detections do
     member do
-      get :test, :results
-      post :save
+      get :test, :save, :results
+      #post :save
     end
   end
 

@@ -5,7 +5,7 @@
 <h2>Classification</h2>
 
 <!-- preload images -->
-	<% if params[:pos_page].nil? and  params[:neg_page].nil? %>
+	<% if params[:pos_page].nil? and  params[:neg_page].nil? and @detection.currId == 0 %>
 		<% @detection.positive_training.keys.each do |code| %>
 			<%= image_tag(@detection.positive_training[code][1], width: 0, height: 0, border: 0, alt: ""  ) %>
 		<% end %>
@@ -136,47 +136,73 @@
 	</div>
 </div>
 
-
+<div class="row-fluid">
+	<div class="span12">
+		<% flash.each do |key, value| %>
+			<div class="divCenter alert alert-<%= key %>"><strong><%= value %></strong></div>
+		<% end %>
+	</div>
+</div>
 <!-- -->
 
 	
-	<div class="row-fluid">
-		<div class="well span4 eqh">
-			<h4>Your performance:</h4>
-			<% if @detection.currId < 10 %>
-				<p class="text-info">your performance will be available after 10 detections</p>
-			<% else %>
-				<p class="text-info">Your current F1-score is: <%= @f1score %>
-			<% end %>
-		</div>
-		<div div class="well span4 eqh">
-			<%= form_tag(test_detection_path(@detection.id), :method=>'post', :multipart => true)  do %>
-				<%= hidden_field_tag 'nextId', @detection.currId+1 %>
+<div class="row-fluid">
+	<div class="span4">
+		<h4>Your current performance:</h4>
+		<% if @detection.currId < 10 %>
+			<p class="text-info">your performance will be available after 10 detections</p>
+		<% else %>
+			<p class="text-info">Your current F1-score is: <strong><%= @f1score %></strong></p>
+		<% end %>
+	</div>
+
+	<div div class="span8 well">
+				<%= form_tag(save_detection_path(@detection.id), :method=>'get', :multipart => true)  do %>
+				<%= hidden_field_tag 'cnp', @curr_neg_page %>
+				<%= hidden_field_tag 'cpp', @curr_pos_page %>
+		<div class="row-fluid">
+			<div class="span3">
 				<div class="thumbnail">
 					<a href="#samples" class="thumbnail">
-						<%= image_tag(@detection.value[@curr_image_code][1], alt: @curr_image_code, title: @curr_image_code) %>
+						<%= image_tag(@detection.value[@curr_image_code][2], alt: @curr_image_code, title: @curr_image_code) %>
 					</a>
-					<div class="caption">
-						<h5>Classify:</h5>
-						<label class="radio">
-							<%= radio_button_tag( "k", "pp" ) %>Mitosis
-						</label>
-						<label class="radio">
-							<%= radio_button_tag( "k", "qp" ) %>Guess Mitosis
-						</label>
-						<label class="radio">
-							<%= radio_button_tag( "k", "qn" ) %>Guess NON Mitosis
-						</label>
-						<label class="radio">
-							<%= radio_button_tag( "k", "nn" ) %>NON Mitosis
-						</label>
+				</div>
+				<div class="caption divCenter">
+                    <p class="text-info"><small>Image <strong><%= @detection.currId + 1 %></strong> of <strong><%= @detection.value.values.length %>
+                    </strong></small></p>
+                 </div>
+			</div>
+			<div class="span5">
+				<label class="radio">
+					<%= radio_button_tag( @curr_image_code, "pp" ) %>Mitosis
+				</label>
+				<label class="radio">
+					<%= radio_button_tag( @curr_image_code, "qp" ) %>Guess Mitosis
+				</label>
+				<label class="radio">
+					<%= radio_button_tag( @curr_image_code, "qn" ) %>Guess NON Mitosis
+				</label>
+				<label class="radio">
+					<%= radio_button_tag( @curr_image_code, "nn" ) %>NON Mitosis
+				</label>
+			</div>
+			<div class="span4">
+				<div class="row-fluid">
+					<h4>Please select:</h4>
+					<div class="span8 offset2 divCenter">
+							<%= submit_tag "Classify", class: "btn btn-primary" %>
+							<% end %>
 					</div>
 				</div>
-		</div>
-		<div class="well span4 eqh divCenter">
-			<%= submit_tag "Classify", class: "btn btn-primary" %>
-			<% end %>
+				<div class="row-fluid">
+					<div class="span8 offset2 divCenter">
+						<p>or</p>
+						<%= link_to "Finish", results_detection_path(@detection), class: "btn btn-success" %>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
 
 

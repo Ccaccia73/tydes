@@ -29,6 +29,15 @@
 	</div>
 </div>
 
+<div class="row-fluid">
+	<div class="span6 offset2">
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %>"><%= value %></div>
+		<% end %>
+	</div>
+</div>
+
+
 
 <!-- FORM -->
 <div class="row-fluid">
