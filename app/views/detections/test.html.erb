@@ -5,16 +5,6 @@
 <h2>Classification</h2>
 
 <!-- preload images -->
-	<% if params[:pos_page].nil? and  params[:neg_page].nil? and @detection.currId == 0 %>
-		<% @detection.positive_training.keys.each do |code| %>
-			<%= image_tag(@detection.positive_training[code][1], width: 0, height: 0, border: 0, alt: ""  ) %>
-		<% end %>
-		<% @detection.negative_training.keys.each do |code| %>
-			<%= image_tag(@detection.negative_training[code][1], width: 0, height: 0, border: 0, alt: ""  ) %>
-		<% end %>
-	<% else %>
-		<p>&nbsp;</p>
-	<% end %>
 
 <!-- Intro -->
 <div class="row-fluid">
