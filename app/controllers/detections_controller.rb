@@ -25,8 +25,7 @@ class DetectionsController < ApplicationController
 			@curr_neg_page = 1
 		else
 			@curr_neg_page = params[:neg_page].to_i
-		end
-		
+		end		
 	end
 
 	def create
