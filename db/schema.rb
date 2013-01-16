@@ -15,16 +15,17 @@ ActiveRecord::Schema.define(:version => 20130115120614) do
 
   create_table "detections", :force => true do |t|
     t.integer  "user"
-    t.text     "value",             :limit => 4096
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "code"
-    t.text     "positive_training", :limit => 4096
+    t.text     "positive_trainingset"
+    t.text     "value",                :limit => 255
+    t.text     "positive_training"
     t.integer  "fn"
     t.integer  "fp"
     t.integer  "tn"
     t.integer  "tp"
-    t.text     "negative_training", :limit => 4096
+    t.text     "negative_training"
     t.integer  "sight"
     t.integer  "currId"
   end

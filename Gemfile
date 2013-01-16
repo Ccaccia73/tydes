@@ -46,16 +46,16 @@ end
 
 group :production do
   gem 'pg'
-  #gem 'thin'
+
 end
 
+gem 'thin'
 #gem "heroku"
+#gem 'libv8', :platforms => :ruby
+gem 'therubyracer', '=0.10'
 
 
-#gem 'therubyracer'
-#gem 'libv8', '3.11.8.0'
-
-#gem "less-rails"
+gem "less-rails"
 
 gem "twitter-bootstrap-rails"
 
