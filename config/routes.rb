@@ -6,9 +6,10 @@ Tydes::Application.routes.draw do
     end
   end
 
-  root to: 'static_pages#home'
+  #root to: 'static_pages#home'
+  root to: 'detections#new'
 
-  match '/start',  to: 'detections#new'
+  #match '/start',  to: 'detections#new'
 
   match '/help', to: 'static_pages#help'
   match '/about', to: 'static_pages#about'

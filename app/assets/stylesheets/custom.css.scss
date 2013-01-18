@@ -182,9 +182,7 @@ li.header {
   text-align: center;
 }
 
-
-
-.imagethumb {
-  margin-left: 2.12766%;
-}
-
+.withscroll {
+  height: 350px !important;
+  overflow-y: scroll;
+} 

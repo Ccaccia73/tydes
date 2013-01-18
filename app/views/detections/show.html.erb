@@ -2,40 +2,12 @@
 
 <h2>Training</h2>
 
-<!-- preload images -->
-
-<div class="row-fluid">
-	<div class="span1 pull-left eqh">
-		<section>
-			<p class="text-info"><em>Code:</em></p>
-			<h5>
-				<%= @detection.code %>
-			</h5>
-		</section>
-	</div>
-	<div class="span11 well well-small pull-right eqhBase">
-		<div class="row-fluid">
-			<div class="span11">
-				<dl class="dl-horizontal">
-					<dt>
-						<span class="label label-important spot">Important</span>
-					</dt>
-					<dd>
-						Please use the 5 character code on the left to review the results of the detection, when you have completed the process.
-					</dd>
-				</dl>
-			</div>
-		</div>
-	</div>
-</div>
-
-
 <div class="row-fluid">
 	<div class="well well-small span12">
 		<div class="row-fluid">
 			<div class="span10 offset1">
 				<p>
-					Carefully look at examples for both classes. <span class="label label-info">MITOSIS</span> images have a mitotic nucleus right in the center of the image.Non mitotic nuclei are visible anywhere in <span class="label label-warning">NON-MITOSIS</span> images. When you are ready to continue, press the button below.
+					Carefully look at examples for both classes. When you are ready to continue, press the button below.
 				</p>
 				<p>
 					Training examples will remain visible during the next phase as a reference.
@@ -51,13 +23,13 @@
 		<a name="samples"></a>
 		<div class="row-fluid">
 			<div class="span12">
-				<p>&nbsp</p>
+				<p>&nbsp;</p>
 				<h3><span class="label label-info">Mitotic samples</span></h3>
 			</div>
 		</div>
 		<div class="row-fluid">
-			<div class="span12">
-				<% (0..3).each do |row_index| %>
+			<div class="span12 withscroll">
+				<% (0..35).each do |row_index| %>
 					<div class="row-fluid">
 						<ul class="thumbnails">
 							<% (0..5).each do |col_index| %>
@@ -72,25 +44,18 @@
 					</div>
 				<% end %>
 			</div>
-			<div class="span12 divCenter">
-				<p class="text-info">showing samples from <strong><%= (@curr_pos_page - 1) * 24 + 1 %></strong> to 
-				<strong><%= @curr_pos_page * 24 %></strong></p>
-			</div>
-			<div class="pagination pagination-small pagination-centered">
-				<%= will_paginate @positive_keys, :param_name => 'pos_page', :params => {:anchor => "samples"} %>
-			</div>
 		</div>
 	</div>
 	<div class="span6 well pull-right">
 		<div class="row-fluid">
 			<div class="span12">
-				<p>&nbsp</p>
+				<p>&nbsp;</p>
 				<h3><span class="label label-warning">NON Mitotic samples</span></h3>
 			</div>
 		</div>
 		<div class="row-fluid">
-			<div class="span12">
-				<% (0..3).each do |row_index| %>
+			<div class="span12 withscroll">
+				<% (0..35).each do |row_index| %>
 					<div class="row-fluid">
 						<ul class="thumbnails">
 							<% (0..5).each do |col_index| %>
@@ -105,13 +70,6 @@
 					</div>
 				<% end %>
 			</div>
-			<div class="span12 divCenter">
-				<p class="text-info">showing samples from <strong><%= (@curr_neg_page - 1) * 24 + 1 %></strong> to 
-				<strong><%= @curr_neg_page * 24 %></strong></p>
-			</div>
-			<div class="pagination pagination-small pagination-centered">
-				<%= will_paginate @negative_keys, :param_name => 'neg_page', :params => {:anchor => "samples"} %>
-			</div> 
 		</div>
 	</div>
 </div>

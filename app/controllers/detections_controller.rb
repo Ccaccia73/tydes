@@ -12,20 +12,9 @@ class DetectionsController < ApplicationController
 	def show
 		@detection = Detection.find(params[:id])
 
-		@positive_keys = @detection.positive_training.keys.paginate(:page => params[:pos_page], :per_page => 24)
-		@negative_keys = @detection.negative_training.keys.paginate(:page => params[:neg_page], :per_page => 24)
+		@positive_keys = @detection.positive_training.keys
+		@negative_keys = @detection.negative_training.keys
 		
-		if params[:pos_page].nil?
-			@curr_pos_page = 1
-		else
-			@curr_pos_page = params[:pos_page].to_i
-		end
-
-		if params[:neg_page].nil?
-			@curr_neg_page = 1
-		else
-			@curr_neg_page = params[:neg_page].to_i
-		end		
 	end
 
 	def create
@@ -108,21 +97,9 @@ class DetectionsController < ApplicationController
 	def test
 		@detection = Detection.find(params[:id])
 
-		@positive_keys = @detection.positive_training.keys.paginate(:page => params[:pos_page], :per_page => 18)
-		@negative_keys = @detection.negative_training.keys.paginate(:page => params[:neg_page], :per_page => 18)
+		@positive_keys = @detection.positive_training.keys
+		@negative_keys = @detection.negative_training.keys
 		
-		if params[:pos_page].nil?
-			@curr_pos_page = 1
-		else
-			@curr_pos_page = params[:pos_page].to_i
-		end
-
-		if params[:neg_page].nil?
-			@curr_neg_page = 1
-		else
-			@curr_neg_page = params[:neg_page].to_i
-		end
-
 		f1den = 2*@detection.tp + @detection.fn + @detection.fp
 
 		if f1den == 0
@@ -135,7 +112,7 @@ class DetectionsController < ApplicationController
 		@curr_image_code = @detection.value.keys[@detection.currId]
 
 		#save at beginning of test, to use "updated_at" as a time reference
-		if params[:pos_page].nil? and params[:neg_page].nil? and @detection.currId == 0
+		if @detection.currId == 0
 			@detection.save
 		end
 	end
@@ -148,81 +125,86 @@ class DetectionsController < ApplicationController
 
 		guess = 0
 
+		puts "PARAMS2 #{params}"
+
+		curr_image_code = @detection.value.keys[@detection.currId]
+
 		params.keys.each do |k|
-			if k.length == 9
-				# look for code
-				pim = Evalpositive.find_by_code(k)
+			if !k["mit"].nil?
+				# look for codeputs "PARAMS2 #{params}"
+				puts "found submit"
+				pim = Evalpositive.find_by_code(curr_image_code)
 				
 				if pim != nil
 					# it is a positive image
-					if params[k] == 'pp'
+					if !k['pp'].nil?
 						selected = true
 						guess = 1
 						#it is detected as positive
 						pim.positives += 1
 						#update detection
-						@detection.value[k][3] = 1.0
+						@detection.value[curr_image_code][3] = 1.0
 						@detection.tp += 1
-					elsif params[k] == 'qp'
+					elsif !k['qp'].nil?
 						selected = true
 						guess = 2
 						#it is detected as positive
 						pim.positives += 1
 						#update detection
-						@detection.value[k][3] = 0.75
+						@detection.value[curr_image_code][3] = 0.75
 						@detection.tp += 1
-					elsif params[k] == 'qn'
+					elsif !k['qn'].nil?
 						selected = true
 						guess = 3
 						#update detection
-						@detection.value[k][3] = 0.25
+						@detection.value[curr_image_code][3] = 0.25
 						@detection.fn += 1
-					elsif params[k] == 'nn'
+					elsif !k['nn'].nil?
 						selected = true
 						guess = 4
 						#update detection
-						@detection.value[k][3] = 0.0
+						@detection.value[curr_image_code][3] = 0.0
 						@detection.fn += 1					
 					end
 					pim.save
-					@detection.value[k][4] = (act_t - @detection.updated_at).to_i
+					@detection.value[curr_image_code][4] = (act_t - @detection.updated_at).to_i
 				else
-					nim = Evalnegative.find_by_code(k)
+					nim = Evalnegative.find_by_code(curr_image_code)
 
 					if nim != nil
 						# it is a negative image
 						nim.detections += 1
-						if params[k] == 'pp'
+						if !k['pp'].nil?
 							selected = true
 							guess = 5
 							#it is detected as positive
 							nim.positives += 1
 							#update detection
-							@detection.value[k][3] = 1.0
+							@detection.value[curr_image_code][3] = 1.0
 							@detection.fp += 1
-						elsif params[k] == 'qp'
+						elsif !k['qp'].nil?
 							selected = true
 							guess = 6
 							#it is detected as positive
 							nim.positives += 1
 							#update detection
-							@detection.value[k][3] = 0.75
+							@detection.value[curr_image_code][3] = 0.75
 							@detection.fp += 1
-						elsif params[k] == 'qn'
+						elsif !k['qn'].nil?
 							selected = true
 							guess = 7
 							#update detection
-							@detection.value[k][3] = 0.25
+							@detection.value[curr_image_code][3] = 0.25
 							@detection.tn += 1
-						elsif params[k] == 'nn'
+						elsif !k['nn'].nil?
 							selected = true
 							guess = 8
 							#update detection
-							@detection.value[k][3] = 0.0
+							@detection.value[curr_image_code][3] = 0.0
 							@detection.tn += 1					
 						end
 						nim.save
-						@detection.value[k][4] = (act_t - @detection.updated_at).to_i
+						@detection.value[curr_image_code][4] = (act_t - @detection.updated_at).to_i
 					end
 				end
 			end

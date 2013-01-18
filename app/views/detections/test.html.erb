@@ -4,51 +4,15 @@
 
 <h2>Classification</h2>
 
-<!-- preload images -->
 
 <!-- Intro -->
 <div class="row-fluid">
-	<div class="span1 pull-left eqh">
-		<section>
-			<p class="text-info"><em>Code:</em></p>
-			<h5>
-				<%= @detection.code %>
-			</h5>
-		</section>
-	</div>
-	<div class="span11 well well-small pull-right eqhBase">
+	<div class="span12 well">
 		<div class="row-fluid">
 			<div class="span10 offset1">
 				<p>
-					Please give your best guess for the example below. We know that many samples are very difficult. Each image we show has the same probability.
+					Please give your best guess for the example below. We know that many samples are very difficult.
 				</p>
-				<dl>
-					<dt>
-						DEFINITELY MITOSIS
-					</dt>
-					<dd>
-						there is a mitotic nucleus right at the center of this image
-					</dd>
-					<dt>
-						UNSURE, PROBABLY MITOSIS
-					</dt>
-					<dd>
-						inclined towards the presence of a mitotic nucleus at the center of this image
-					</dd>
-					<dt>
-						UNSURE, PROBABLY NONMITOSIS
-					</dt>
-					<dd>
-						inclined towards the absence of a mitotic nucleus in this image
-					</dd>
-					<dt>
-						DEFINITELY NONMITOSIS
-					</dt>
-					<dd>
-						there is no mitotic nucleus in this image
-					</dd>
-
-				</dl>
 			</div>
 		</div>
 	</div>
@@ -66,8 +30,8 @@
 			</div>
 		</div>
 		<div class="row-fluid">
-			<div class="span12">
-				<% (0..2).each do |row_index| %>
+			<div class="span12 withscroll">
+				<% (0..35).each do |row_index| %>
 					<div class="row-fluid">
 						<ul class="thumbnails">
 							<% (0..5).each do |col_index| %>
@@ -82,13 +46,6 @@
 					</div>
 				<% end %>
 			</div>
-			<div class="span12 divCenter">
-				<p class="text-info">showing samples from <strong><%= (@curr_pos_page - 1) * 18 + 1 %></strong> to 
-				<strong><%= @curr_pos_page * 18 %></strong></p>
-			</div>
-			<div class="pagination pagination-small pagination-centered">
-				<%= will_paginate @positive_keys, :param_name => 'pos_page', :params => {:anchor => "samples"} %>
-			</div>
 		</div>
 	</div>
 	<div class="span6 well pull-right">
@@ -99,8 +56,8 @@
 			</div>
 		</div>
 		<div class="row-fluid">
-			<div class="span12">
-				<% (0..2).each do |row_index| %>
+			<div class="span12 withscroll">
+				<% (0..35).each do |row_index| %>
 					<div class="row-fluid">
 						<ul class="thumbnails">
 							<% (0..5).each do |col_index| %>
@@ -115,13 +72,6 @@
 					</div>
 				<% end %>
 			</div>
-			<div class="span12 divCenter">
-				<p class="text-info">showing samples from <strong><%= (@curr_neg_page - 1) * 18 + 1 %></strong> to 
-				<strong><%= @curr_neg_page * 18 %></strong></p>
-			</div>
-			<div class="pagination pagination-small pagination-centered">
-				<%= will_paginate @negative_keys, :param_name => 'neg_page', :params => {:anchor => "samples"} %>
-			</div> 
 		</div>
 	</div>
 </div>
@@ -148,46 +98,38 @@
 
 	<div div class="span8 well">
 				<%= form_tag(save_detection_path(@detection.id), :method=>'get', :multipart => true)  do %>
-				<%= hidden_field_tag 'cnp', @curr_neg_page %>
-				<%= hidden_field_tag 'cpp', @curr_pos_page %>
 		<div class="row-fluid">
 			<div class="span3">
+				<p>&nbsp;</p>
 				<div class="thumbnail">
 					<a href="#samples" class="thumbnail">
 						<%= image_tag(@detection.value[@curr_image_code][2], alt: @curr_image_code, title: @curr_image_code) %>
 					</a>
 				</div>
-				<div class="caption divCenter">
-                    <p class="text-info"><small>Image <strong><%= @detection.currId + 1 %></strong> of <strong><%= @detection.value.values.length %>
-                    </strong></small></p>
-                 </div>
 			</div>
-			<div class="span5">
-				<label class="radio">
-					<%= radio_button_tag( @curr_image_code, "pp" ) %>Mitosis
-				</label>
-				<label class="radio">
-					<%= radio_button_tag( @curr_image_code, "qp" ) %>Guess Mitosis
-				</label>
-				<label class="radio">
-					<%= radio_button_tag( @curr_image_code, "qn" ) %>Guess NON Mitosis
-				</label>
-				<label class="radio">
-					<%= radio_button_tag( @curr_image_code, "nn" ) %>NON Mitosis
-				</label>
+			<div class="span3">
+				<p class="text-info">Your guess:</p>
+				<p>
+					<%= submit_tag "Definitely Mitosis", class: "btn btn-success btn-block", name: "mit_pp" %>
+				</p>
+				<p>
+					<%= submit_tag "Guess Mitosis", class: "btn btn-info btn-block", name: "mit_qp" %>
+				</p>
+				<p>
+					<%= submit_tag "Guess NON Mitosis", class: "btn btn-warning btn-block", name: "mit_qn" %>
+				</p>
+				<p>
+					<%= submit_tag "Definitely NON Mitosis", class: "btn btn-danger btn-block", name: "mit_nn" %>
+				</p>
+					<% end %>
 			</div>
-			<div class="span4">
-				<div class="row-fluid">
-					<h4>Please select:</h4>
-					<div class="span8 offset2 divCenter">
-							<%= submit_tag "Classify", class: "btn btn-primary" %>
-							<% end %>
-					</div>
-				</div>
+			<div class="span6">
 				<div class="row-fluid">
 					<div class="span8 offset2 divCenter">
-						<p>or</p>
-						<%= link_to "Finish", results_detection_path(@detection), class: "btn btn-success" %>
+						<p>&nbsp;</p>
+						<p class="text-info">Whenever you want, you can</p>
+						<p><%= link_to "Finish your test", results_detection_path(@detection), class: "btn btn-primary" %></p>
+						<p class="text-info">and see how you did.</p>
 					</div>
 				</div>
 			</div>

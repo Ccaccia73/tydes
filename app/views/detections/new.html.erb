@@ -1,9 +1,9 @@
 <% provide(:title, 'Start') %>
-<h2>Start</h2>
+<h2>Introduction</h2>
 
 <!-- Intro -->
 <div class="row-fluid">
-	<div class="well well-small span12">
+	<div class="well span12">
 		<div class="row-fluid">
 			<div class="span10 offset1">
 				<h2>Image classification experiment on the <abbr title="M I T O S">MITOS</abbr> dataset</h2>
@@ -11,7 +11,7 @@
 					Detecting and counting mitotic nuclei is an important part of the evaluation of breast cancer histological images. However, distinguishing mitotic nuclei from non-mitotic nuclei and other similar structures is hard and time-consuming, therefore researchers are designing automated algorithms for assisting histologists in this task.
 				</p>
 				<p>
-					Algorithms learn to detect mitotic nuclei by looking at a large number of examples.  In this experiment, we want to compare their accuracy with the accuracy of humans which, without prior training, are faced with the same task.
+					Algorithms learn to detect mitotic nuclei by looking at a large number of examples.  In this experiment, we want to compare their accuracy with the accuracy of humans whichare new to the problem and are faced with the same task.
 				</p>
 				<p>The experiment is divided in two phases:</p>
 				<dl class="dl-horizontal">
@@ -47,16 +47,14 @@
 
 		<%= render 'shared/error_messages' %>
 
-		<%= f.label :user %>
 		<%= f.select :user, [["I don't work in medicine/biology",1],
 							 ["I work in medicine/biology but I am not an histologist",2],
 							 ["I am an histologist",3]] ,
-		{:prompt => 'How would you define yourself?'} %>
+		{:prompt => 'Your experience?'} %>
 
-		<%= f.label :sight %>
 		<%= f.select :sight, [["I have normal color vision",1],
 							 ["I am colorblind",2]] ,
-		{:prompt => 'How would you define your visual ability?'} %>
+		{:prompt => 'Your color vision ability?'} %>
 
 
 		<%= f.submit "Begin the Experiment", class: "btn btn-primary" %>
@@ -65,16 +63,20 @@
 </div>
 
 <div class="row-fluid">
-	<div class="well well-small span12">
-		<p>
-			<small>
-				Author names are currently hidden during MICCAI blind review period.
-			</small>
-		</p>
-		<p>
-			<small>
-				The data used in this experiment is part of the public <a href="http://ipal.cnrs.fr/ICPR2012/?q=node/5">MITOS dataset</a>, built for project MITO by experienced pathologists at the Piti&eacute;-Salp&ecirc;tri&egrave;re Hospital in Paris, France.
-			</small>
-		</p>
+	<div class="well span12">
+		<div class="row-fluid">
+			<div class="span10 offset1">
+				<p>
+					<small>
+						Names of Authors of this study are currently hidden during MICCAI blind review period.
+					</small>
+				</p>
+				<p>
+					<small>
+						The data used in this experiment is part of the public <a href="http://ipal.cnrs.fr/ICPR2012/?q=node/5">MITOS dataset</a>, built for project MITO by experienced pathologists at the Piti&eacute;-Salp&ecirc;tri&egrave;re Hospital in Paris, France.
+					</small>
+				</p>
+			</div>
+		</div>
 	</div>
 </div>
