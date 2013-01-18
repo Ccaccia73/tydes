@@ -41,7 +41,7 @@ class DetectionsController < ApplicationController
 
     		pos_ids.each do |pid|
     			pim = Positive.find(pid)
-    			@detection.positive_training[pim.code] = [pid, ('training/' + pim.dir + pim.name)]
+    			@detection.positive_training[pim.code] = [pid, (pim.dir + pim.name)]
     			#pim.trainings += 1
     			#pim.save
     		end
@@ -51,7 +51,7 @@ class DetectionsController < ApplicationController
 
     		neg_ids.each do |nid|
     			nim = Negative.find(nid)
-    			@detection.negative_training[nim.code] = [nid, ('training/' + nim.dir + nim.name)]
+    			@detection.negative_training[nim.code] = [nid, (nim.dir + nim.name)]
     			#nim.trainings += 1
     			#nim.save
     		end
@@ -66,8 +66,8 @@ class DetectionsController < ApplicationController
     		(0..Evalpositive.count-1).each do |k|
     			pim = Evalpositive.find(eval_pos_ids[k])
     			nim = Evalnegative.find(eval_neg_ids[k])
-    			tmpkeys << [pim.code, '1', ('evaluation/' + pim.dir + pim.name), eval_pos_ids[k]]
-    			tmpkeys << [nim.code, '0', ('evaluation/' + nim.dir + nim.name), eval_neg_ids[k]]
+    			tmpkeys << [pim.code, '1', (pim.dir + pim.name), eval_pos_ids[k]]
+    			tmpkeys << [nim.code, '0', (nim.dir + nim.name), eval_neg_ids[k]]
     			#pim.detections += 1
     			#nim.detections += 1
     		end

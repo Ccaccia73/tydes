@@ -1,0 +1,1 @@
+$(function(){$(".eqh").css({height:$(".eqhBase").height()})});
