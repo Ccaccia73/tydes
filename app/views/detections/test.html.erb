@@ -21,23 +21,25 @@
 
 <!-- TRAINING SAMPLES -->
 <div class="row-fluid">
-	<div class="span6 well pull-left">
+	<div class="span12">
+		<p>&nbsp;</p>
 		<a name="samples"></a>
+	</div>
+	<div class="span6 well pull-left">
 		<div class="row-fluid">
 			<div class="span12">
-				<p>&nbsp</p>
 				<h3><span class="label label-info">Mitotic samples</span></h3>
 			</div>
 		</div>
 		<div class="row-fluid">
 			<div class="span12 withscroll">
-				<% (0..35).each do |row_index| %>
+				<% (0..53).each do |row_index| %>
 					<div class="row-fluid">
 						<ul class="thumbnails">
-							<% (0..5).each do |col_index| %>
-								<li class="span2">
+							<% (0..3).each do |col_index| %>
+								<li class="span3">
 									<a href="#samples" class="thumbnail">
-										<% code = @positive_keys[row_index * 6 + col_index] %>
+										<% code = @positive_keys[row_index * 4 + col_index] %>
 										<%= image_tag(@detection.positive_training[code][1], alt: code, title: code) %>
 									</a>
 								</li>
@@ -51,19 +53,19 @@
 	<div class="span6 well pull-right">
 		<div class="row-fluid">
 			<div class="span12">
-				<p>&nbsp</p>
+				<p>&nbsp;</p>
 				<h3><span class="label label-warning">NON Mitotic samples</span></h3>
 			</div>
 		</div>
 		<div class="row-fluid">
 			<div class="span12 withscroll">
-				<% (0..35).each do |row_index| %>
+				<% (0..53).each do |row_index| %>
 					<div class="row-fluid">
 						<ul class="thumbnails">
-							<% (0..5).each do |col_index| %>
-								<li class="span2">
+							<% (0..3).each do |col_index| %>
+								<li class="span3">
 									<a href="#samples" class="thumbnail">
-										<% code = @negative_keys[row_index * 6 + col_index] %>
+										<% code = @negative_keys[row_index * 4 + col_index] %>
 										<%= image_tag(@detection.negative_training[code][1], alt: code, title: code) %>
 									</a>
 								</li>

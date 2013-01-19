@@ -125,8 +125,6 @@ class DetectionsController < ApplicationController
 
 		guess = 0
 
-		puts "PARAMS2 #{params}"
-
 		curr_image_code = @detection.value.keys[@detection.currId]
 
 		params.keys.each do |k|
@@ -249,7 +247,6 @@ class DetectionsController < ApplicationController
 	end
 
 	def results
-		puts "PARAMS2 #{params}"
 		@detection = Detection.find(params[:id])
 	end
 
