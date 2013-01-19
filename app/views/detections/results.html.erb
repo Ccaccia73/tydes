@@ -1,14 +1,19 @@
 <% provide(:title, @detection.code) %>
-<h1>Congratulations!</h1>
+
+<% if @review.nil? %>
+	<h2><strong>Thank you for your collaboration!</strong></h2>
+<% else %>
+	<h2>Results for detection <strong><%= @detection.code %></strong></h2>
+<% end %>
 
 <div class="row-fluid">
-	<div class="span3">Detection code: <%= @detection.code%></div>
+	<div class="span3">Detection code: <strong><%= @detection.code%></strong></div>
 	<div class="span8">Here are your results:</div>
 </div>
 <div class="row-fluid">
-	<div class="span8 offset3">
+	<div class="span6 offset3">
 		<table class="table table-hover">
-			<caption>Detection results</caption>
+			<caption><strong>Detection results</strong></caption>
 			<tr class="success">
 				<td>True positives: <%= @detection.tp%></td>
 				<td>True negatives: <%= @detection.tn%></td>
