@@ -1,10 +1,12 @@
 ---
-application.js: application-e489a1d01ad018ac0cecbe6499153e47.js
-application/index.js: application-e489a1d01ad018ac0cecbe6499153e47.js
+application.js: application-f01f186e1e2465b8c3d197871d51b848.js
+application/index.js: application-f01f186e1e2465b8c3d197871d51b848.js
 bootstrap.js: bootstrap-2b9296590073083355a21c8fe0915f73.js
 bootstrap/index.js: bootstrap-2b9296590073083355a21c8fe0915f73.js
 detections.js: detections-a7fa98ba2ef09a5dcc079d3f014a4e3c.js
 detections/index.js: detections-a7fa98ba2ef09a5dcc079d3f014a4e3c.js
+jquery.imageLens.js: jquery.imageLens-61fbea99b0b6291c1fe965a09901b52d.js
+jquery/index.imageLens.js: jquery.imageLens-61fbea99b0b6291c1fe965a09901b52d.js
 static_pages.js: static_pages-a7fa98ba2ef09a5dcc079d3f014a4e3c.js
 static_pages/index.js: static_pages-a7fa98ba2ef09a5dcc079d3f014a4e3c.js
 varie.js: varie-d233019b44667d3bdac94e637ad8bf50.js
