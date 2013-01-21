@@ -1,5 +1,15 @@
 <% provide(:title, @detection.code) %>
 
+<script type="text/javascript" language="javascript">
+	$(function () {
+		$(".imgzoom").imageLens();
+		$("#img_02").imageLens({ lensSize: 200 });
+		$("#img_03").imageLens({ imageSrc: "sample01.jpg" });
+		$("#img_04").imageLens({ borderSize: 8, borderColor: "#06f" });
+	});	
+</script>
+
+
 <h1>Training</h1>
 
 <div class="row-fluid">
@@ -40,7 +50,7 @@
 								<li class="span3">
 									<a href="#samples" class="thumbnail">
 										<% code = @positive_keys[row_index * 4 + col_index] %>
-										<%= image_tag(@detection.positive_training[code][1], alt: code, title: code) %>
+										<%= image_tag(@detection.positive_training[code][1], alt: code, title: code, class: "imgzoom") %>
 									</a>
 								</li>
 							<% end %>
@@ -66,7 +76,7 @@
 								<li class="span3">
 									<a href="#samples" class="thumbnail">
 										<% code = @negative_keys[row_index * 4 + col_index] %>
-										<%= image_tag(@detection.negative_training[code][1], alt: code, title: code) %>
+										<%= image_tag(@detection.negative_training[code][1], alt: code, title: code, class: "imgzoom") %>
 									</a>
 								</li>
 							<% end %>

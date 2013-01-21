@@ -43,7 +43,7 @@
 								<li class="span3">
 									<a href="#samples" class="thumbnail">
 										<% code = @positive_keys[row_index * 4 + col_index] %>
-										<%= image_tag(@detection.positive_training[code][1], alt: code, title: code) %>
+										<%= image_tag(@detection.positive_training[code][1], alt: code, title: code, class: "imgzoom") %>
 									</a>
 								</li>
 							<% end %>
@@ -69,7 +69,7 @@
 								<li class="span3">
 									<a href="#samples" class="thumbnail">
 										<% code = @negative_keys[row_index * 4 + col_index] %>
-										<%= image_tag(@detection.negative_training[code][1], alt: code, title: code) %>
+										<%= image_tag(@detection.negative_training[code][1], alt: code, title: code, class: "imgzoom") %>
 									</a>
 								</li>
 							<% end %>
@@ -99,7 +99,13 @@
 		<% if @detection.currId < 10 %>
 			<p class="text-info">your performance will be available after 10 detections</p>
 		<% else %>
-			<p class="text-info">Your current F1-score is: <strong><%= @f1score %></strong></p>
+			<p class="text-info">
+				<ul class="unstyled">
+					<li>Your current <em>F1-score</em> is: <strong><%= @f1score %></strong></li>
+					<li>Your current <em>Sensitivity</em> is: <strong><%= @sensitivity %></strong></li>
+					<li>Your current <em>Specificity</em> is: <strong><%= @specificity %></strong></li>
+				</ul>
+			</p>
 		<% end %>
 	</div>
 
@@ -110,7 +116,7 @@
 				<p>&nbsp;</p>
 				<div class="thumbnail">
 					<a href="#samples" class="thumbnail">
-						<%= image_tag(@detection.value[@curr_image_code][2], alt: @curr_image_code, title: @curr_image_code) %>
+						<%= image_tag(@detection.value[@curr_image_code][2], alt: @curr_image_code, title: @curr_image_code, class: "imgzoom") %>
 					</a>
 				</div>
 			</div>

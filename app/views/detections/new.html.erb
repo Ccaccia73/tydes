@@ -57,6 +57,11 @@
 		{:prompt => 'Your color vision ability?'} %>
 
 
+		<%= f.label :nickname %>
+		<p class="text-info">(You can leave it blank)</p>
+		<%= f.text_field :nickname %>
+
+
 		<%= f.submit "Begin the Experiment", class: "btn btn-primary" %>
     <% end %>
   </div>

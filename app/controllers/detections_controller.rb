@@ -108,6 +108,22 @@ class DetectionsController < ApplicationController
 			@f1score = number_with_precision( 2*@detection.tp.to_f / f1den.to_f )
 		end
 
+		sensden = @detection.tp + @detection.fn
+
+		if sensden == 0
+			@sensitivity = number_with_precision(0.0)
+		else
+			@sensitivity = number_with_precision( @detection.tp.to_f / sensden.to_f )
+		end
+
+		specden = @detection.tn + @detection.fp
+		
+		if specden == 0
+			@specificity = number_with_precision(0.0)
+		else
+			@specificity = number_with_precision( @detection.tn.to_f / specden.to_f )
+		end
+
 		#@image_keys = @detection.value.keys.paginate(:page => params[:page], :per_page => 5)
 		@curr_image_code = @detection.value.keys[@detection.currId]
 
