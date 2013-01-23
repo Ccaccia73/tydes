@@ -1,0 +1,46 @@
+<% provide(:title, 'All Detections') %>
+<div class="row-fluid">
+	<div class="span12">
+		<h1>All Detections</h1>
+	</div>
+</div>
+
+<% if @detectionsindex.nil? %>
+<div class="row-fluid">
+	<div class="span12 well">
+		<p class="text-info">No detections found, at the moment</p>
+	</div>
+</div>
+
+<% else %>
+<div class="row-fluid">
+	<table class="table table-hover">
+		<caption>Detections completed:</caption>
+		<thead>
+			<tr>
+				<th>Code</th>
+				<th>User</th>
+				<th>Ability</th>
+				<th>Nickname</th>
+				<th>Total</th>
+				<th>TP</th>
+				<th>TN</th>
+				<th>FP</th>
+				<th>FN</th>
+				<th>Avg. time</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @detectionsindex.each do |d| %>
+				<tr>
+					<% (0..10).each do |k| %>
+						<td><%= d[k] %></td>
+					<% end %>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<% end %>

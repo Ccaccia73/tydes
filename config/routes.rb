@@ -4,6 +4,10 @@ Tydes::Application.routes.draw do
       get :test, :save, :results
       #post :save
     end
+
+    collection do
+      get :search, :as => :search
+    end
   end
 
   #root to: 'static_pages#home'

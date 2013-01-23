@@ -1,6 +1,6 @@
 <% provide(:title, @detection.code) %>
 
-<% if @review.nil? %>
+<% if flash.nil? %>
 	<h2><strong>Thank you for your collaboration!</strong></h2>
 <% else %>
 	<h2>Results for detection <strong><%= @detection.code %></strong></h2>
@@ -11,7 +11,7 @@
 	<div class="span8">Here are your results:</div>
 </div>
 <div class="row-fluid">
-	<div class="span6 offset3">
+	<div class="span4 offset4">
 		<table class="table table-hover">
 			<caption><strong>Detection results</strong></caption>
 			<tr class="success">
@@ -23,5 +23,10 @@
 				<td>False negatives: <%= @detection.fn%></td>
 			</tr>
 		</table>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span6 offset3">
+		
 	</div>
 </div>

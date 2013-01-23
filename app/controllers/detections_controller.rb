@@ -266,4 +266,63 @@ class DetectionsController < ApplicationController
 		@detection = Detection.find(params[:id])
 	end
 
+	def index
+		detections = Detection.all
+
+		@detectionsindex = Array.new
+
+		detections.each do |d|
+
+			case d.user
+				when 1
+					type = "newbie"
+				when 2
+					type = "biologist"
+				when 3
+					type = "histologist"
+			end
+
+			case d.sight
+				when 1
+					sight = "normal"
+				when 2
+					sight = "colorblind"
+			end
+
+			tot_time = 0
+
+			d.value.values.each do |v|
+				if !v[3].to_s["u"].nil?
+					break
+				else
+					tot_time += v[4]
+				end
+			end
+
+			tot_det = d.tp + d.tn + d.fp + d.fn
+
+			if tot_time == 0
+				avg = 0.0
+			else
+				avg = number_with_precision( tot_time.to_f / tot_det.to_f )
+			end
+
+					
+			@detectionsindex << [d.code, type, sight, d.nickname, tot_det, d.tp, d.tn, d.fp, d.fn, avg, d.updated_at  ]
+		end
+	end
+
+	def search
+		# puts "PARAMS pippo #{params}"
+		@detection = Detection.find_by_code(params[:code])
+
+		if @detection.nil?
+			flash[:error] = "No Detection found with code #{params[:code]}"
+			redirect_to(root_path)
+		else
+			flash[:success] = "OK"
+			redirect_to results_detection_path(@detection)
+		end
+	end
+
 end
