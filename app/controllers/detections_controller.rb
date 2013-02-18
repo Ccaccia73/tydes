@@ -1,5 +1,6 @@
 require 'will_paginate/array'
 require 'action_view/helpers/number_helper'
+require 'csv'
 
 class DetectionsController < ApplicationController
 
@@ -229,7 +230,8 @@ class DetectionsController < ApplicationController
 
 		if !selected
 			flash[:warning] = "Please classify Image or press Finish"
-			redirect_to test_detection_path(@detection, :anchor => "samples")
+			#redirect_to test_detection_path(@detection, :anchor => "samples")
+			redirect_to test_detection_path(@detection)
 		else
 			case guess
 				when 1
@@ -256,7 +258,8 @@ class DetectionsController < ApplicationController
 			if @detection.currId == @detection.value.values.length
 				redirect_to results_detection_path(@detection)
 			else
-				redirect_to test_detection_path(@detection, :anchor => "samples")
+				redirect_to test_detection_path(@detection)
+				#redirect_to test_detection_path(@detection, :anchor => "samples")
 			end
 		end
 
@@ -323,6 +326,19 @@ class DetectionsController < ApplicationController
 			flash[:success] = "OK"
 			redirect_to results_detection_path(@detection)
 		end
+	end
+
+	def download
+
+		detections = Detection.all
+
+		csv = CSV.generate do |csv|
+			csv << ["pippo"]
+		end
+
+		send_data csv, :type => 'text/csv'
+
+		#redirect_to detections_path
 	end
 
 end

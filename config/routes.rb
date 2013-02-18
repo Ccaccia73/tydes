@@ -7,6 +7,7 @@ Tydes::Application.routes.draw do
 
     collection do
       get :search, :as => :search
+      get :download, :as => :download
     end
   end
 

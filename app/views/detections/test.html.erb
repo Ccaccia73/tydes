@@ -1,6 +1,4 @@
 <% provide(:title, @detection.code) %>
-<script>
-</script>
 
 <h1>Classification</h1>
 
@@ -10,77 +8,14 @@
 	<div class="span12 well">
 		<div class="row-fluid">
 			<div class="span10 offset1">
-				<p class="lead text-info">
-					Please give your best guess for the example below. We know that many samples are very difficult.
+				<p class="text-info">
+					Please give your best guess for the example below.
 				</p>
 			</div>
 		</div>
 	</div>
 </div>
 
-
-<!-- TRAINING SAMPLES -->
-<div class="row-fluid">
-	<div class="span12">
-		<a name="samples"></a>
-		<p>&nbsp;</p>
-	</div>	
-</div>
-
-<div class="row-fluid">
-	<div class="span6 well pull-left">
-		<div class="row-fluid">
-			<div class="span12">
-				<p class="text-info">Some examples: <span class="label label-info">Mitosis</span></p>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="span12 withscroll">
-				<% (0..53).each do |row_index| %>
-					<div class="row-fluid">
-						<ul class="thumbnails">
-							<% (0..3).each do |col_index| %>
-								<li class="span3">
-									<a href="#samples" class="thumbnail">
-										<% code = @positive_keys[row_index * 4 + col_index] %>
-										<%= image_tag(@detection.positive_training[code][1], alt: code, title: code, class: "imgzoom") %>
-									</a>
-								</li>
-							<% end %>
-						</ul>
-					</div>
-				<% end %>
-			</div>
-			<p class="text-info"><span class="label label-info">scroll</span> to view more samples</p>
-		</div>
-	</div>
-	<div class="span6 well pull-right">
-		<div class="row-fluid">
-			<div class="span12">
-				<p class="text-info">Some examples: <span class="label label-warning">NON Mitosis</span></p>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="span12 withscroll">
-				<% (0..53).each do |row_index| %>
-					<div class="row-fluid">
-						<ul class="thumbnails">
-							<% (0..3).each do |col_index| %>
-								<li class="span3">
-									<a href="#samples" class="thumbnail">
-										<% code = @negative_keys[row_index * 4 + col_index] %>
-										<%= image_tag(@detection.negative_training[code][1], alt: code, title: code, class: "imgzoom") %>
-									</a>
-								</li>
-							<% end %>
-						</ul>
-					</div>
-				<% end %>
-			</div>
-			<p class="text-info"><span class="label label-info">scroll</span> to view more samples</p>
-		</div>
-	</div>
-</div>
 
 <!-- message -->
 <div class="row-fluid">
@@ -146,6 +81,71 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- TRAINING SAMPLES -->
+<div class="row-fluid">
+	<div class="span12">
+		<a name="samples"></a>
+		<p>&nbsp;</p>
+	</div>	
+</div>
+
+<div class="row-fluid">
+	<div class="span6 well pull-left">
+		<div class="row-fluid">
+			<div class="span12">
+				<p class="text-info">Training Set: <span class="label label-info">Mitosis</span></p>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12 withscroll">
+				<% (0..53).each do |row_index| %>
+					<div class="row-fluid">
+						<ul class="thumbnails">
+							<% (0..3).each do |col_index| %>
+								<li class="span3">
+									<a href="#samples" class="thumbnail">
+										<% code = @positive_keys[row_index * 4 + col_index] %>
+										<%= image_tag(@detection.positive_training[code][1], alt: code, title: code, class: "imgzoom") %>
+									</a>
+								</li>
+							<% end %>
+						</ul>
+					</div>
+				<% end %>
+			</div>
+			<p class="text-info"><span class="label label-info">scroll</span> to view more samples</p>
+		</div>
+	</div>
+	<div class="span6 well pull-right">
+		<div class="row-fluid">
+			<div class="span12">
+				<p class="text-info">Training Set: <span class="label label-warning">NON Mitosis</span></p>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span12 withscroll">
+				<% (0..53).each do |row_index| %>
+					<div class="row-fluid">
+						<ul class="thumbnails">
+							<% (0..3).each do |col_index| %>
+								<li class="span3">
+									<a href="#samples" class="thumbnail">
+										<% code = @negative_keys[row_index * 4 + col_index] %>
+										<%= image_tag(@detection.negative_training[code][1], alt: code, title: code, class: "imgzoom") %>
+									</a>
+								</li>
+							<% end %>
+						</ul>
+					</div>
+				<% end %>
+			</div>
+			<p class="text-info"><span class="label label-info">scroll</span> to view more samples</p>
 		</div>
 	</div>
 </div>
