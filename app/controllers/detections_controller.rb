@@ -333,12 +333,56 @@ class DetectionsController < ApplicationController
 		detections = Detection.all
 
 		csv = CSV.generate do |csv|
-			csv << ["pippo"]
+			detections.each do |d|
+				csv << ["USER",d.user,d.sight,d.nickname,d.updated_at,d.tp,d.fn,d.tn,d.fp,d.code]
+				d.value.values.each do |v|
+					if !v[3].to_s["u"].nil?
+						break
+					else
+						if v[1]['1'].nil?
+							# neg image
+							im = Evalnegative.find(v[0])
+							tot_id = v[0] + Evalpositive.count
+						elsif v[1]['0'].nil?
+							#pos image
+							im = Evalpositive.find(v[0])
+							tot_id = v[0]
+						else
+							puts "unknown image"
+							break;
+						end
+
+						csv << [tot_id,im.image.split('.')[0],im.x,im.y,v[1],v[3],v[4]]
+
+					end
+				end
+			end
 		end
 
-		send_data csv, :type => 'text/csv'
+		send_data csv, :type => 'text/csv', :filename => 'user.csv', :disposition => 'attachment'
 
 		#redirect_to detections_path
 	end
 
+	def imagedownload
+
+		csv = CSV.generate do |csv|
+
+			ep = Evalpositive.all
+
+			ep.each do |im|
+				csv << [im.id,'1',im.image.split('.')[0],im.x,im.y,im.positives]
+			end
+
+			en = Evalnegative.all
+
+			en.each do |im|
+				csv << [im.id + Evalpositive.count,'0',im.image.split('.')[0],im.x,im.y,im.positives]
+			end
+
+		end
+
+		send_data csv, :type => 'text/csv', :filename => 'images.csv', :disposition => 'attachment'
+
+	end
 end
