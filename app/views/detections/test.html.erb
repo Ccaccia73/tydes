@@ -9,7 +9,8 @@
 		<div class="row-fluid">
 			<div class="span10 offset1">
 				<p class="text-info">
-					Please give your best guess for the example below.
+					Please give your best guess for the example below. Roughly 50% of the samples we show are
+					<span class="label label-info">Mitosis</span> and 50% are <span class="label label-warning">NON Mitosis</span>.
 				</p>
 			</div>
 		</div>
@@ -36,9 +37,11 @@
 		<% else %>
 			<p class="text-info">
 				<ul class="unstyled">
-					<li>Your current <em>F1-score</em> is: <strong><%= @f1score %></strong></li>
-					<li>Your current <em>Sensitivity</em> is: <strong><%= @sensitivity %></strong></li>
-					<li>Your current <em>Specificity</em> is: <strong><%= @specificity %></strong></li>
+					<li>Your current <em><a href="http://en.wikipedia.org/wiki/F1_score">Score</a></em> is: <strong><%= @f1score %>%</strong></li>
+					<li>Average of <em>Humans</em> is: <strong>(not enough data yet)</strong></li>
+					<li>Best of <em>Algorithms</em> is: <strong>85%</strong></li>
+					<li><em>Random Guess</em> is: <strong>50%</strong></li>
+					<li><em>Ideal classifier</em> is: <strong>100%</strong></li>
 				</ul>
 			</p>
 		<% end %>

@@ -106,7 +106,7 @@ class DetectionsController < ApplicationController
 		if f1den == 0
 			@f1score = number_with_precision(0.0);
 		else
-			@f1score = number_with_precision( 2*@detection.tp.to_f / f1den.to_f )
+			@f1score = number_with_precision( 2*@detection.tp.to_f / f1den.to_f * 100 )
 		end
 
 		sensden = @detection.tp + @detection.fn
@@ -114,7 +114,7 @@ class DetectionsController < ApplicationController
 		if sensden == 0
 			@sensitivity = number_with_precision(0.0)
 		else
-			@sensitivity = number_with_precision( @detection.tp.to_f / sensden.to_f )
+			@sensitivity = number_with_precision( @detection.tp.to_f / sensden.to_f * 100 )
 		end
 
 		specden = @detection.tn + @detection.fp
@@ -122,7 +122,7 @@ class DetectionsController < ApplicationController
 		if specden == 0
 			@specificity = number_with_precision(0.0)
 		else
-			@specificity = number_with_precision( @detection.tn.to_f / specden.to_f )
+			@specificity = number_with_precision( @detection.tn.to_f / specden.to_f * 100 )
 		end
 
 		#@image_keys = @detection.value.keys.paginate(:page => params[:page], :per_page => 5)
@@ -267,6 +267,31 @@ class DetectionsController < ApplicationController
 
 	def results
 		@detection = Detection.find(params[:id])
+
+		f1den = 2*@detection.tp + @detection.fn + @detection.fp
+
+		if f1den == 0
+			@f1score = number_with_precision(0.0);
+		else
+			@f1score = number_with_precision( 2*@detection.tp.to_f / f1den.to_f * 100 )
+		end
+
+		sensden = @detection.tp + @detection.fn
+
+		if sensden == 0
+			@sensitivity = number_with_precision(0.0)
+		else
+			@sensitivity = number_with_precision( @detection.tp.to_f / sensden.to_f * 100 )
+		end
+
+		specden = @detection.tn + @detection.fp
+		
+		if specden == 0
+			@specificity = number_with_precision(0.0)
+		else
+			@specificity = number_with_precision( @detection.tn.to_f / specden.to_f * 100 )
+		end
+
 	end
 
 	def index
