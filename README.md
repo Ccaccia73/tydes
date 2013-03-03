@@ -23,4 +23,4 @@ A specific subsection of the application shows overall statistics, collected at 
 
 ### Contacts
 
-[Claudio Caccia](www.pipolauro.org)
+[CC](www.pipolauro.org)
