@@ -1,10 +1,15 @@
 <% provide(:title, @detection.code) %>
 
+<div class="row-fluid">
 <% if flash[:success].nil? %>
 	<h2><strong>Thank you very much for your collaboration!</strong></h2>
+	<div class="span6 offset3">
+		<div class="divCenter alert alert-info"><strong>Please DO NOT retry this test</strong></div>
+	</div>
 <% else %>
 	<h2>Results for session <strong><%= @detection.code %></strong></h2>
 <% end %>
+</div>
 
 <div class="row-fluid">
 	<div class="span3">Session code: <strong><%= @detection.code%></strong></div>
@@ -29,7 +34,7 @@
 	<div class="span4 offset4">
 		<table class="table table-hover">
 			<tr>
-				<td>Your <em>Score</em> is:</td>
+				<td>Your <em>Accuracy</em> is:</td>
 				<td><strong><%= @f1score %>%</strong></td>
 			</tr>
 			<tr>
@@ -45,20 +50,16 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Average of <em>Humans</em> is:</td>
-				<td><strong>(not enough data yet)</strong></td>
+				<td>Average Accuracy of <em>humans</em> is:</td>
+				<td><strong>66%</strong></td>
 			</tr>
 			<tr>
-				<td>Best of <em>Algorithms</em> is:</td>
-				<td><strong>85%</strong></td>
+				<td>Accuracy of <em>best humans</em> is:</td>
+				<td><strong>80% to 85%</strong></td>
 			</tr>
 			<tr>
-				<td><em>Random Guess</em> is:</td>
-				<td><strong>50%</strong></td>
-			</tr>
-			<tr>
-				<td><em>Ideal classifier</em> is:</td>
-				<td> <strong>100%</strong></td>
+				<td>Accuracy of <em>best algorithms</em> is:</td>
+				<td><strong>&#126;87%</strong></td>
 			</tr>
 		</table>
 	</div>

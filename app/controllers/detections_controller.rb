@@ -101,12 +101,13 @@ class DetectionsController < ApplicationController
 		@positive_keys = @detection.positive_training.keys
 		@negative_keys = @detection.negative_training.keys
 		
-		f1den = 2*@detection.tp + @detection.fn + @detection.fp
+		# NB: NOW IS ACCURACY
+		f1den = @detection.tp + @detection.fn + @detection.fp + @detection.tn
 
 		if f1den == 0
 			@f1score = number_with_precision(0.0);
 		else
-			@f1score = number_with_precision( 2*@detection.tp.to_f / f1den.to_f * 100 )
+			@f1score = number_with_precision( ( @detection.tp.to_f + @detection.tn.to_f ) / f1den.to_f * 100 )
 		end
 
 		sensden = @detection.tp + @detection.fn
@@ -268,12 +269,17 @@ class DetectionsController < ApplicationController
 	def results
 		@detection = Detection.find(params[:id])
 
-		f1den = 2*@detection.tp + @detection.fn + @detection.fp
+		#save comments
+		@detection.comment = params[:comment][:text]
+		@detection.save
+
+		#NB: NOW is ACCURACY
+		f1den = @detection.tp + @detection.fn + @detection.fp + @detection.tn
 
 		if f1den == 0
 			@f1score = number_with_precision(0.0);
 		else
-			@f1score = number_with_precision( 2*@detection.tp.to_f / f1den.to_f * 100 )
+			@f1score = number_with_precision( ( @detection.tp.to_f + @detection.tn.to_f ) / f1den.to_f * 100 )
 		end
 
 		sensden = @detection.tp + @detection.fn
@@ -409,5 +415,9 @@ class DetectionsController < ApplicationController
 
 		send_data csv, :type => 'text/csv', :filename => 'images.csv', :disposition => 'attachment'
 
+	end
+
+	def comment
+		@detection = Detection.find(params[:id])
 	end
 end

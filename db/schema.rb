@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121071651) do
+ActiveRecord::Schema.define(:version => 20130306084512) do
 
   create_table "detections", :force => true do |t|
     t.integer  "user"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(:version => 20130121071651) do
     t.integer  "sight"
     t.integer  "currId"
     t.string   "nickname"
+    t.text     "comment"
   end
 
   add_index "detections", ["code"], :name => "index_detections_on_code", :unique => true

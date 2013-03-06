@@ -32,16 +32,15 @@
 <div class="row-fluid">
 	<div class="span4">
 		<h4>Your current performance:</h4>
-		<% if @detection.currId < 10 %>
-			<p class="text-info">your performance will be available after 10 detections</p>
+		<% if @detection.currId < 20 %>
+			<p class="text-info">your performance will be available after 20 detections</p>
 		<% else %>
 			<p class="text-info">
 				<ul class="unstyled">
-					<li>Your current <em><a href="http://en.wikipedia.org/wiki/F1_score" target="_blank">Score</a></em> is: <strong><%= @f1score %>%</strong></li>
-					<li>Average of <em>Humans</em> is: <strong>(not enough data yet)</strong></li>
-					<li>Best of <em>Algorithms</em> is: <strong>85%</strong></li>
-					<li><em>Random Guess</em> is: <strong>50%</strong></li>
-					<li><em>Ideal classifier</em> is: <strong>100%</strong></li>
+					<li>Your current <em>Accuracy</em> is: <strong><%= @f1score %>%</strong></li>
+					<li>Average accuracy of <em>humans</em> is: <strong>66%</strong></li>
+					<li>Accuracy of <em>best humans</em> is: <strong>80% to 85%</strong></li>
+					<li>Accuracy of <em>best algorithms</em> is: <strong>&#126;87%</strong></li>
 				</ul>
 			</p>
 		<% end %>
@@ -51,7 +50,7 @@
 				<%= form_tag(save_detection_path(@detection.id), :method=>'get', :multipart => true)  do %>
 		<div class="row-fluid">
 			<div class="span3">
-				<p>&nbsp;</p>
+				<p class="text-info">Sample <em><%= @detection.currId+1 %></em></p>
 				<div class="thumbnail">
 					<a href="#samples" class="thumbnail">
 						<%= image_tag(@detection.value[@curr_image_code][2], alt: @curr_image_code, title: @curr_image_code, class: "imgzoom") %>
@@ -79,7 +78,7 @@
 					<div class="span8 offset2 divCenter">
 						<p>&nbsp;</p>
 						<p class="text-info">Whenever you want, you can</p>
-						<p><%= link_to "Finish your test", results_detection_path(@detection), class: "btn btn-primary" %></p>
+						<p><%= link_to "Finish your test", comment_detection_path(@detection), class: "btn btn-primary" %></p>
 						<p class="text-info">and see how you did.</p>
 					</div>
 				</div>

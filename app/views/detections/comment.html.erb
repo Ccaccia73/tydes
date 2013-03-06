@@ -1,0 +1,18 @@
+<%= form_tag(results_detection_path(@detection), :method=>'get', :multipart => true)  do %>
+<div class="row-fluid">
+	<div class="span6 offset3">
+		<p class="text-info">(optional) briefly describe the classification criteria you devised:</p>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span6 offset3 well">
+		<%= text_area(:comment, :text, :cols => 40, :rows => 15) %>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="span6 offset3 divCenter">
+		<p><%= submit_tag "View your results", class: "btn btn-primary" %></p>		
+	</div>
+</div>
+<% end %>
+

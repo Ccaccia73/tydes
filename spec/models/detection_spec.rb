@@ -18,6 +18,7 @@
 #  sight                :integer
 #  currId               :integer
 #  nickname             :string(255)
+#  comment              :text
 #
 
 require 'spec_helper'
