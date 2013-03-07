@@ -1,4 +1,6 @@
-<%= form_tag(results_detection_path(@detection), :method=>'get', :multipart => true)  do %>
+<% provide(:title, @detection.code) %>
+
+<%= form_tag(commentsave_detection_path(@detection), :method=>'get', :multipart => true)  do %>
 <div class="row-fluid">
 	<div class="span6 offset3">
 		<p class="text-info">(optional) briefly describe the classification criteria you devised:</p>

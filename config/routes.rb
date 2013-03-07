@@ -1,7 +1,7 @@
 Tydes::Application.routes.draw do
   resources :detections do
     member do
-      get :test, :save, :results, :comment
+      get :test, :save, :results, :comment, :commentsave
       #post :save
     end
 
@@ -9,6 +9,7 @@ Tydes::Application.routes.draw do
       get :search, :as => :search
       get :download, :as => :download
       get :imagedownload, :as => :imagedownload
+      get :comments, :as => :comments
     end
   end
 

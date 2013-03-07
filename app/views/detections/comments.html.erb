@@ -1,0 +1,30 @@
+<% provide(:title, 'All Comments') %>
+
+<div class="row-fluid">
+	<div class="span12">
+		<h1>All Comments</h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<%if @comments.empty? %>
+		<div class="span6 offset3">
+			<p class="lead">No comments yet</p>
+		</div>
+	<% else %>
+		<div class="span8 offset2">
+			<table class="table">
+				<% @comments.each do |c| %>
+					<tr>
+						<td>
+							<blockquote>
+								<p><%= c[3] %></p>
+								<small><%= c[0] %>, <cite title="Pippo"><%= c[1] %>, <%= c[2] %></cite> - <%= c[4] %></small>
+							</blockquote>
+						</td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	<% end %>
+</div>

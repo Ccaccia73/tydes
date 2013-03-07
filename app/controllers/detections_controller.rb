@@ -269,9 +269,6 @@ class DetectionsController < ApplicationController
 	def results
 		@detection = Detection.find(params[:id])
 
-		#save comments
-		@detection.comment = params[:comment][:text]
-		@detection.save
 
 		#NB: NOW is ACCURACY
 		f1den = @detection.tp + @detection.fn + @detection.fp + @detection.tn
@@ -419,5 +416,48 @@ class DetectionsController < ApplicationController
 
 	def comment
 		@detection = Detection.find(params[:id])
+	end
+
+	def commentsave
+		@detection = Detection.find(params[:id])
+		#save comments
+		@detection.comment = params[:comment][:text]
+		@detection.save
+		redirect_to results_detection_path(@detection)
+	end
+
+	def comments
+		detections = Detection.all
+
+		@comments = Array.new
+
+		detections.each do |d|
+
+			case d.user
+				when 1
+					type = "newbie"
+				when 2
+					type = "biologist"
+				when 3
+					type = "histologist"
+			end
+
+			case d.sight
+				when 1
+					sight = "normal vision"
+				when 2
+					sight = "colorblind"
+			end
+
+			if d.nickname.empty?
+				nick = "Anonymous"
+			else
+				nick = d.nickname
+			end
+
+			if !d.comment.nil?
+				@comments << [nick, type, sight, d.comment, d.updated_at  ]
+			end
+		end
 	end
 end
