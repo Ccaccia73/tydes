@@ -455,7 +455,7 @@ class DetectionsController < ApplicationController
 				nick = d.nickname
 			end
 
-			if !d.comment.nil?
+			if !d.comment.empty?
 				@comments << [nick, type, sight, d.comment, d.updated_at  ]
 			end
 		end
