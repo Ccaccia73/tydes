@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 
 gem 'bootstrap-sass'
 gem 'will_paginate'
@@ -13,6 +13,7 @@ gem 'bootstrap-will_paginate'
 group :development, :test do
   gem 'rspec-rails'
   gem 'sqlite3'
+  gem 'sqlite3-ruby', :require => 'sqlite3'
 #  gem 'guard-rspec', '1.2.1'
 end
 
